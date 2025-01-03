@@ -27,3 +27,38 @@ urlpatterns = [
     path('usage_data/', include('usage_data.urls')),
     path('admin/', admin.site.urls),
 ]
+
+
+# --technologies
+# -technologies
+# -categories
+# -manufacturers
+# -technologies_techniques
+
+# --projects
+# -projects
+# -feedback
+# -locations
+# -countries
+
+# --techniques
+# -conservation_techniques
+
+# --usage Data 
+# -usage_data
+# -water_sources
+# -climate_data
+# -soil_data
+# -energy_consumption
+
+# --stakeholders
+# -stakeholders
+# -funding_sources
+# -regulations
+
+# --training and research
+# -training_programs
+# -research_studies
+
+# --maintenance
+# -maintenance_records
