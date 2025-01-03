@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from . import views
 
 urlpatterns = [
+    path("", views.index, name="index"),
     path('maintenance/', include('maintenance.urls')),
     path('projects/', include('projects.urls')),
     path('stakeholders/', include('stakeholders.urls')),
@@ -27,38 +29,3 @@ urlpatterns = [
     path('usage_data/', include('usage_data.urls')),
     path('admin/', admin.site.urls),
 ]
-
-
-# --technologies
-# -technologies
-# -categories
-# -manufacturers
-# -technologies_techniques
-
-# --projects
-# -projects
-# -feedback
-# -locations
-# -countries
-
-# --techniques
-# -conservation_techniques
-
-# --usage Data 
-# -usage_data
-# -water_sources
-# -climate_data
-# -soil_data
-# -energy_consumption
-
-# --stakeholders
-# -stakeholders
-# -funding_sources
-# -regulations
-
-# --training and research
-# -training_programs
-# -research_studies
-
-# --maintenance
-# -maintenance_records

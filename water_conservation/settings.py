@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'technologies',
     'training_and_research',
     'usage_data',
+    'water_conservation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
