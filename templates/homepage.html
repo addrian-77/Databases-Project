@@ -3,16 +3,32 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<title>Page Title</title>
+    <title>Page Title</title>
 </head>
 <body>
+    <h1>This is a Heading</h1>
+    <p>This is a paragraph.</p>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-<form method = "POST" action = "/">
-    {% csrf_token %}
-    <button>Click</button>
-</form>
+    <!-- Display the result dynamically -->
+    {% if result %}
+        <div>
+            <p>{{ result }}</p>
+        </div>
+    {% endif %}
 
+    <form action="/" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="say">What greeting do you want to say?</label>
+            <input name="say" id="say"/>
+        </div>
+        <div>
+            <label for="to">Who do you want to say it to?</label>
+            <input name="to" id="to"/>
+        </div>
+        <div>
+            <button>Send my greetings</button>
+        </div>
+    </form>
 </body>
-</html> 
+</html>
