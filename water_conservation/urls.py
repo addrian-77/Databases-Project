@@ -21,6 +21,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("login.html", views.login, name="login"),
+    path("signup.html", views.signup, name="signup"),  # Ruta pentru pagina de înregistrare
     path('maintenance/', include('maintenance.urls')),
     path('projects/', include('projects.urls')),
     path('stakeholders/', include('stakeholders.urls')),
