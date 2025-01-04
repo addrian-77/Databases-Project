@@ -2,7 +2,9 @@
 <html>
 <head>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>		
+    <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Page Title</title>
 </head>
 <body>
@@ -16,19 +18,10 @@
         </div>
     {% endif %}
 
-    <form action="/" method="POST">
-        {% csrf_token %}
-        <div>
-            <label for="say">What greeting do you want to say?</label>
-            <input name="say" id="say"/>
-        </div>
-        <div>
-            <label for="to">Who do you want to say it to?</label>
-            <input name="to" id="to"/>
-        </div>
-        <div>
-            <button>Send my greetings</button>
-        </div>
-    </form>
+    <h1>hello</h1>
+    <!-- the map div -->
+    <div id="mapdiv">
+        <div id="map"></div>
+    </div>
 </body>
 </html>
