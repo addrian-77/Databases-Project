@@ -26,7 +26,13 @@
                 <li><a href="">Home</a></li>
                 <li><a href="">About</a></li>
                 <!-- if not logged in -->
-                <li class="login"><a href="./login.html">Log in</a></li>
+                {% if user.is_authenticated %}
+                    <li class="login"><a href="logout/">Log out</a></li>
+                    <li class="login"><a href="account/">My account</a></li>
+                {% else %}
+                    <li class="login"><a href="login/">Log in</a></li>
+                {% endif %}
+
                 <!-- if logged in then show account button -->
             </ul>
         </div>
@@ -57,5 +63,11 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="container">
+            <p>footer</p>
+        </div>
+    </footer>
 </body>
 </html>

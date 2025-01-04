@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>IWP Project - Login</title>
+  <title>Login</title>
   
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -89,6 +89,7 @@
 
     /* Button hover effect */
     .btn:hover {
+      color: white;
       background-color: #004d40; /* Darker green on hover */
       transform: scale(1.05); /* Slight zoom effect */
     }
@@ -116,7 +117,7 @@
       color: #00796b; /* Green color for the welcome message */
       font-weight: 700;
       margin-bottom: 30px;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+      text-shadow: 2px 2px 5px rgba(209, 195, 195, 0.4);
       text-align: center;
     }
   </style>
@@ -126,7 +127,7 @@
   <div class="form-container">
     <h2>Login</h2>
     <p class="welcome-message">Join Us in the Fight for Water Conservation!</p>
-    <form action="/login.html" method="POST">
+    <form action="{% url 'login' %}" method="POST">
       {% csrf_token %}
       <div class="mb-3">
         <label for="email">Email:</label>
@@ -138,9 +139,19 @@
       </div>
       <button type="submit" class="btn">Login</button>
     </form>
+    
+    <!-- Display feedback messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <p class="alert">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+    
     <div class="footer">
-      <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+      <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+      <p>Changed your mind? <a href="/">Continue as guest</a></p>
     </div>
   </div>
 </body>
+
 </html>
