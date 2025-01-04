@@ -2,26 +2,60 @@
 <html>
 <head>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>		
     <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
-    <title>Page Title</title>
+    <title>Water Conservation</title>
 </head>
 <body>
-    <h1>This is a Heading</h1>
-    <p>This is a paragraph.</p>
 
     <!-- Display the result dynamically -->
+    <!-- 
     {% if result %}
         <div>
             <p>{{ result }}</p>
         </div>
-    {% endif %}
+    {% endif %} 
+    -->
 
-    <h1>hello</h1>
+    <!-- header declaration -->
+    <header>
+        <div class="container">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About</a></li>
+                <!-- if not logged in -->
+                <li class="login"><a href="./login.html">Log in</a></li>
+                <!-- if logged in then show account button -->
+            </ul>
+        </div>
+    </header>
+    
     <!-- the map div -->
-    <div id="mapdiv">
-        <div id="map"></div>
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div id="mapdiv">
+                    <div id="map"></div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <h1>top countries</h1>
+                    <!-- create table based on leaderboard -->
+                </div>
+                <div class="col">
+                    <h2>most water</h2>
+                    <!-- create table based on leaderboard -->
+                </div>
+            </div>
+
+            <div class="row">
+                <h1>most popular water technologies</h1>
+            </div>
+        </div>
     </div>
 </body>
 </html>

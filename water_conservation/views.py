@@ -10,3 +10,6 @@ def index(request):
             result = ""
         return render(request, 'homepage.html', {'result': result})
     return render(request, 'homepage.html')
+
+def login(request):
+    return render(request, 'login.html')

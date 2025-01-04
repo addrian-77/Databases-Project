@@ -27,8 +27,8 @@ var simplemaps_worldmap_mapdata={
     location_border_color: "#FFFFFF",
     location_border: 2,
     location_hover_border: 2.5,
-    all_locations_inactive: "no",
-    all_locations_hidden: "no",
+    all_locations_inactive: "yes",
+    all_locations_hidden: "yes",
     
 		//Label defaults
 		label_color: "#ffffff",
@@ -1572,31 +1572,7 @@ var simplemaps_worldmap_mapdata={
     }
   },
   locations: {
-    "0": {
-      name: "Paris",
-      lat: "48.866666670",
-      lng: "2.333333333",
-      color: "default",
-      description: "default",
-      url: "default"
-    },
-    "1": {
-      name: "Tokyo",
-      lat: "35.666666670",
-      lng: "139.750000000",
-      color: "default",
-      description: "default",
-      url: "default"
-    },
-    "3": {
-      name: "New York",
-      lat: "40.71",
-      lng: "-74.0059731",
-      description: "default",
-      color: "default",
-      url: "default",
-      size: "default"
-    }
+    
   },
   labels: {}
 };
