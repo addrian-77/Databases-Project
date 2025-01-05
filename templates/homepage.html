@@ -45,7 +45,7 @@
                 <div class="row">
                     <div id="mapdiv">
                         <div id="map"></div>
-                        <p id="output">Click on a country to see its name.</p>
+                        <div id="output">Click on a country to see its name.</div>
                     </div>
                 </div>
                 
@@ -74,41 +74,36 @@
     </footer>
 
     <script>
-        // When a country is clicked
-        worldmap.hooks.click_state = function (id) {
-            const countryData = worldmap_mapdata.state_specific[id];
-            const countryName = countryData?.name || "Unknown Country";
+        console.log("working")
+        document.addEventListener('DOMContentLoaded', function () {
+            // Now it's safe to use the worldmap object
     
-            // Update the output paragraph with the country name
-            document.getElementById('output').textContent = `You clicked: ${countryName}`;
+            worldmap.hooks.click_state = function (id) {
+                const countryData = worldmap_mapdata.state_specific[id];
+                console.log("passed")
+                const countryName = countryData?.name || "Unknown Country";
+                const countriesData = JSON.parse('{{ countries|safe|escapejs }}');
+
+                const additionalData = countriesData.find(c => c.name === countryName);
     
-            // Fetch additional data dynamically from the backend
-            fetch(`/get-country-data/?name=${encodeURIComponent(countryName)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        const { name, population, capital, area } = data.data;
-                        document.getElementById('output').innerHTML = `
-                            <strong>${name}</strong><br>
-                            Population: ${population || 'N/A'}<br>
-                            Capital: ${capital || 'N/A'}<br>
-                            Area: ${area ? area + ' km²' : 'N/A'}
-                        `;
-                    } else {
-                        document.getElementById('output').textContent = data.error;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching country data:', error);
-                    document.getElementById('output').textContent = 'An error occurred while fetching data.';
-                });
-        };
-    </script> 
+                document.getElementById('output').textContent = `You clicked: ${countryName}`;
+    
+                if (additionalData) {
+                    const { name, population, capital, area } = additionalData;
+                    document.getElementById('output').innerHTML = `
+                        <strong>${name}</strong><br>
+                        Population: ${population || 'N/A'}<br>
+                        Capital: ${capital || 'N/A'}<br>
+                        Area: ${area ? area + ' km²' : 'N/A'}
+                    `;
+                } else {
+                    document.getElementById('output').textContent = `No additional data found for ${countryName}.`;
+                }
+            };
+        });
+    </script>
+    
+    
 </body>
 </html>
 

@@ -4,9 +4,13 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.contrib import messages
 from techniques.models import WaterTip
+from projects.models import Country
+import json
 
 def index_view(request):
-    return render(request, 'homepage.html')
+    countries = Country.objects.all().values('name')
+    countries_data = list(countries)
+    return render(request, 'homepage.html', {'countries': json.dumps(countries_data)})
 
 def login_view(request):
     if request.method == 'POST':
@@ -57,7 +61,7 @@ def watertips_view(request):
         watertip = WaterTip.objects.create(tip=tip)
         watertip.save()
         # Mesaj de succes și redirecționare către pagina de watertips
-        messages.success(request, 'Water tip added successfully!')
+        # messages.success(request, 'Water tip added successfully!')
         return redirect('watertips')
     return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 

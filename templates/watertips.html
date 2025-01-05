@@ -74,6 +74,7 @@
         aspect-ratio: 1;
         rotate: 20deg;
         margin: auto;
+        scale: 0.75;  
         }  
 
         .central-point,
@@ -91,25 +92,33 @@
         .central-point {
         position: relative;
         --size: 80;
+        height: calc(var(--size) * 1%);
+        scale: 1.1;
+        margin-top: 40%;
+        margin-left: -10%;
         background-image: url("{% static 'img/central_point.png' %}");
         background-size: cover;
         }
 
         .orbit {
-        --size: 240;
-        --duration: 12s;
+        --size: 300;
+        --duration: 24s;
+        scale: 1;
+        margin-left: -80%;
         box-shadow: 0 0 0 2cqmin #5554, inset 0 0 0 2cqmin #5554;
         animation: orbit calc(var(--duration)) linear infinite;
-        rotate: 1 0 0 -80deg;
+        rotate: 1 0 0 -85deg;
         }
 
         .water-glass {
-        --size: 25;
-        height: calc(var(--size) * 1%);
-        margin-left: calc(var(--size) * -0.5%);
+        --size: 20;
+        --duration: 24s;;
+        height: calc(var(--size) * 0.6%);
+        margin-left: calc(var(--size) * -0.35%);
+
         background-image: url("{% static 'img/water_glass.png' %}");
         background-size: cover;
-        /* animation: planet calc(var(--duration)) linear infinite; */
+        animation: planet calc(var(--duration)) linear infinite;
         rotate: 1 0 0 90deg;
         }
 
@@ -117,69 +126,58 @@
             animation-delay: 0s;
         }
 
-        .water-glass:nth-child(1) {
-            animation: planet1 calc(var(--duration)) linear infinite;
+        .orbit:nth-child(1) .water-glass {
             animation-delay: 0s;
         }
 
-        @keyframes planet1  { to { transform: rotate3d(0, 1, 0, -360deg); } }
-
         .orbit:nth-child(2) {
-            animation-delay: 2s;
-        }
-        
-        .water-glass:nth-child(2) {
-            animation: planet2 calc(var(--duration)) linear infinite;
-            animation-delay: 2s;
+            animation-delay: -4s;
+            box-shadow: none;
         }
 
-        @keyframes planet2  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+        .orbit:nth-child(2) .water-glass {
+            animation-delay: -4s;
+        }
 
         .orbit:nth-child(3) {
-            animation-delay: 4s;
+            animation-delay: -8s;
+            box-shadow: none;
         }
 
-        .water-glass:nth-child(3) {
-            animation: planet3 calc(var(--duration)) linear infinite;
-            animation-delay: 4s;
+        .orbit:nth-child(3) .water-glass {
+            animation-delay: -8s;
         }
 
-        @keyframes planet3  { to { transform: rotate3d(0, 1, 0, -360deg); } }
-
-        .orbit:nth-child(4){
-            animation-delay: 6s;
+        .orbit:nth-child(4) {
+            animation-delay: -12s;
+            box-shadow: none;
         }
 
-        .water-glass:nth-child(4) {
-            animation: planet4 calc(var(--duration)) linear infinite;
-            animation-delay: 6s;
+        .orbit:nth-child(4) .water-glass{
+            animation-delay: -12s;
         }
-
-        @keyframes planet4  { to { transform: rotate3d(0, 1, 0, -360deg); } }
 
         .orbit:nth-child(5) {
-            animation-delay: 8s;
+            animation-delay: -16s;
+            box-shadow: none;
         }
 
-        .water-glass:nth-child(5) {
-            animation: planet5 calc(var(--duration)) linear infinite;
-            animation-delay: 8s;
+        .orbit:nth-child(5) .water-glass {
+            animation-delay: -16s;
         }
-
-        @keyframes planet5  { to { transform: rotate3d(0, 1, 0, -360deg); } }
 
         .orbit:nth-child(6) {
-            animation-delay: 10s;
+            animation-delay: -20s;
+            box-shadow: none;
         }
 
-        .water-glass:nth-child(6) {
-            animation: planet calc(var(--duration)) linear infinite;
-            animation-delay: 10s;
+        .orbit:nth-child(6) .water-glass {
+            animation-delay: -20s;
         }
 
-        @keyframes planet6  { to { transform: rotate3d(0, 1, 0, -360deg); } }
-
+        @keyframes planet  { from{transform: rotate3d(0, 1, 0, 0deg) }to { transform: rotate3d(0, 1, 0, -360deg); } }
         @keyframes orbit { to { transform: rotate3d(0, 0, 1,  360deg); } }
+
 
         
         /* Imaginea picăturii de apă centrală */
@@ -211,6 +209,10 @@
             color: #0288d1;
         }
 
+        .login {
+            float:right;
+        }
+
     </style>
 </head>
 
@@ -222,11 +224,10 @@
         <a href="/watertips">Water Tips</a>
         <a href="/projects">Projects</a>
         {% if user.is_authenticated %}
-            <a href="/profile/">{{ user.username }}</a>
-            <a href="/logout/">Log out</a>
+            <a class="login" href="/logout/">Log out</a>
+            <a class="login" href="/profile/">{{ user.username }}</a>
         {% else %}
-            <a href="/login/">Log in</a>
-            <a href="/signup/">Sign up</a>
+            <a class="login" href="/login/">Log in</a>
         {% endif %}
     </nav>
 
