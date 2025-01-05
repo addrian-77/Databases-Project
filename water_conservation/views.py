@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.contrib import messages
+from techniques.models import WaterTip
 
 def index_view(request):
     return render(request, 'homepage.html')
@@ -37,13 +38,28 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-def account_view(request):
+def profile_view(request):
     is_logged_in = User.is_authenticated
     # print("user logged in")
     if is_logged_in:
-        return render(request, 'account.html')
+        return render(request, 'profile.html')
     else:
         return redirect('/')
+    
+def about_view(request):
+    return render(request, 'about.html')
+
+def watertips_view(request):
+    if request.method == 'POST':
+        # Preluăm datele din formular
+        tip = request.POST['tip']
+        # Creăm un obiect nou
+        watertip = WaterTip.objects.create(tip=tip)
+        watertip.save()
+        # Mesaj de succes și redirecționare către pagina de watertips
+        messages.success(request, 'Water tip added successfully!')
+        return redirect('watertips')
+    return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
 def signup_view(request):
     if request.method == 'POST':

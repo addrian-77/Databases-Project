@@ -7,7 +7,7 @@
   
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
   
   <style>
     /* Basic Reset */
@@ -153,11 +153,16 @@
 <body>
   <!-- Navigation Bar -->
   <nav class="navbar">
-    <a href="#">Home</a>
-    <a href="/about">About</a>
-    <a href="/watertips">Water Tips</a>
-    <a href="/projects">Projects</a>
-    <a href="/profile">Profile</a>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/watertips/">Water Tips</a>
+    <a href="/projects/">Projects</a>
+    {% if user.is_authenticated %}
+      <a href="/profile/">{{ user.username }}</a>
+      <a href="/logout/">Log out</a>
+    {% else %}
+      <a href="/login/">Log in</a>
+    {% endif %}
   </nav>
 
   <!-- About Section -->
@@ -240,12 +245,17 @@
 
     </div>
 
+    {% if user.is_authenticated %}
+      <div class="call-to-action">
+        <p>Thank you for being involved, {{ user.username }}. Every user gets us one step closer to success!</p>
+      </div>
+    {% else %}
     <!-- Call to Action -->
-    <div class="call-to-action">
-      <p>Join the global movement towards sustainable water use and conservation.</p>
-      <a href="signup.html">Get Involved Now</a>
-    </div>
-
+      <div class="call-to-action">
+        <p>Join the global movement towards sustainable water use and conservation.</p>
+        <a href="/signup">Get Involved Now</a>
+      </div>
+    {% endif %}
   </div>
 
   <!-- JavaScript for Mouse Swipe Navigation -->

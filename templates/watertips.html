@@ -3,9 +3,10 @@
 
 <head>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>Water Tips - Water Conservation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Water Conservation Tips</title>
     <style>
         /* Reset pentru toate elementele */
         * {
@@ -66,33 +67,121 @@
             margin-bottom: 30px;
         }
 
-        /* Pahare de apă aranjate */
+        .system {
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        height: 480px;
+        aspect-ratio: 1;
+        rotate: 20deg;
+        margin: auto;
+        }  
+
+        .central-point,
+        .orbit,
         .water-glass {
-            position: relative;
-            width: 180px;
-            height: 250px;
-            background-image: url('https://i.pinimg.com/474x/bd/d0/a9/bdd0a9343a35f85b74d779761949012e.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            display: inline-block;
-            margin: 20px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        transform-style: preserve-3d;
+        inset: 0;
+        height: calc(var(--size) * 1%);
+        margin: auto;
+        aspect-ratio: 1;
+        border-radius: 50%;
         }
 
-        /* Textul din interiorul paharelor */
-        .water-glass p {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            font-size: 18px;
-            color: #004d40;
-            font-weight: bold;
-            padding: 10px;
+        .central-point {
+        position: relative;
+        --size: 80;
+        background-image: url("{% static 'img/central_point.png' %}");
+        background-size: cover;
         }
 
+        .orbit {
+        --size: 240;
+        --duration: 12s;
+        box-shadow: 0 0 0 2cqmin #5554, inset 0 0 0 2cqmin #5554;
+        animation: orbit calc(var(--duration)) linear infinite;
+        rotate: 1 0 0 -80deg;
+        }
+
+        .water-glass {
+        --size: 25;
+        height: calc(var(--size) * 1%);
+        margin-left: calc(var(--size) * -0.5%);
+        background-image: url("{% static 'img/water_glass.png' %}");
+        background-size: cover;
+        /* animation: planet calc(var(--duration)) linear infinite; */
+        rotate: 1 0 0 90deg;
+        }
+
+        .orbit:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .water-glass:nth-child(1) {
+            animation: planet1 calc(var(--duration)) linear infinite;
+            animation-delay: 0s;
+        }
+
+        @keyframes planet1  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+        .orbit:nth-child(2) {
+            animation-delay: 2s;
+        }
+        
+        .water-glass:nth-child(2) {
+            animation: planet2 calc(var(--duration)) linear infinite;
+            animation-delay: 2s;
+        }
+
+        @keyframes planet2  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+        .orbit:nth-child(3) {
+            animation-delay: 4s;
+        }
+
+        .water-glass:nth-child(3) {
+            animation: planet3 calc(var(--duration)) linear infinite;
+            animation-delay: 4s;
+        }
+
+        @keyframes planet3  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+        .orbit:nth-child(4){
+            animation-delay: 6s;
+        }
+
+        .water-glass:nth-child(4) {
+            animation: planet4 calc(var(--duration)) linear infinite;
+            animation-delay: 6s;
+        }
+
+        @keyframes planet4  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+        .orbit:nth-child(5) {
+            animation-delay: 8s;
+        }
+
+        .water-glass:nth-child(5) {
+            animation: planet5 calc(var(--duration)) linear infinite;
+            animation-delay: 8s;
+        }
+
+        @keyframes planet5  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+        .orbit:nth-child(6) {
+            animation-delay: 10s;
+        }
+
+        .water-glass:nth-child(6) {
+            animation: planet calc(var(--duration)) linear infinite;
+            animation-delay: 10s;
+        }
+
+        @keyframes planet6  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+        @keyframes orbit { to { transform: rotate3d(0, 0, 1,  360deg); } }
+
+        
         /* Imaginea picăturii de apă centrală */
         .main-image {
             width: 250px;
@@ -132,8 +221,13 @@
         <a href="/about">About</a>
         <a href="/watertips">Water Tips</a>
         <a href="/projects">Projects</a>
-        <a href="/profile">Profile</a>
-        <a href="./login.html">Log in</a>
+        {% if user.is_authenticated %}
+            <a href="/profile/">{{ user.username }}</a>
+            <a href="/logout/">Log out</a>
+        {% else %}
+            <a href="/login/">Log in</a>
+            <a href="/signup/">Sign up</a>
+        {% endif %}
     </nav>
 
     <!-- Water Tips Section -->
@@ -145,35 +239,41 @@
     </div>
 
     <!-- Imaginea picăturii de apă centrală -->
-    <img class="main-image" src="https://e7.pngegg.com/pngimages/276/297/png-clipart-water-efficiency-water-conservation-drinking-water-water-glass-drop-water-treatment-thumbnail.png" alt="Water Drop">
 
     <!-- Pahare de apă aranjate pe stânga și dreapta -->
-    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; padding: 20px;">
-        <div class="water-glass">
-            <p>Turn off the tap while brushing</p>
+    <div class="system">
+        <div class="central-point">
+            {% for tip in watertips %}
+                <div class="orbit">
+                    <div class="water-glass">
+                        <p>{{ tip.tip }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        <div class="water-glass">
-            <p>Fix leaky faucets</p>
-        </div>
-        <div class="water-glass">
-            <p>Install water-efficient fixtures</p>
-        </div>
-        <div class="water-glass">
-            <p>Use a water-saving showerhead</p>
-        </div>
-        <div class="water-glass">
-            <p>Collect rainwater</p>
-        </div>
-        <div class="water-glass">
-            <p>Reduce hose usage</p>
-        </div>
+    </div>
+
+    <div>
+        <p>Got any water saving tips? Consider sharing them with us!</p>
+        <form action="/watertips/" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Enter your water saving tip" id="tip" name="tip" required>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 
     <!-- Call to Action -->
-    <div class="call-to-action">
-        <p>Join the movement to conserve water and protect our planet.</p>
-        <a href="signup.html">Get Involved Now</a>
-    </div>
+    {% if user.is_authenticated %}
+      <div class="call-to-action">
+        <p>Thank you for being involved, {{ user.username }}. Every user gets us one step closer to success!</p>
+      </div>
+    {% else %}
+    <!-- Call to Action -->
+      <div class="call-to-action">
+        <p>Join the global movement towards sustainable water use and conservation.</p>
+        <a href="/signup">Get Involved Now</a>
+      </div>
+    {% endif %}
 
 </body>
 
