@@ -39,35 +39,75 @@
     </header>
     
     <!-- the map div -->
-    <div class="container">
-        <div class="content">
-            <div class="row">
-                <div id="mapdiv">
-                    <div id="map"></div>
+    <main>
+        <div class="container">
+            <div class="content">
+                <div class="row">
+                    <div id="mapdiv">
+                        <div id="map"></div>
+                        <p id="output">Click on a country to see its name.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col">
-                    <h1>top countries</h1>
-                    <!-- create table based on leaderboard -->
+                
+                <div class="row">
+                    <div class="col">
+                        <h1>top countries</h1>
+                        <!-- create table based on leaderboard -->
+                    </div>
+                    <div class="col">
+                        <h2>most water</h2>
+                        <!-- create table based on leaderboard -->
+                    </div>
                 </div>
-                <div class="col">
-                    <h2>most water</h2>
-                    <!-- create table based on leaderboard -->
-                </div>
-            </div>
 
-            <div class="row">
-                <h1>most popular water technologies</h1>
+                <div class="row">
+                    <h1>most popular water technologies</h1>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <div class="container">
             <p>footer</p>
         </div>
     </footer>
+
+    <script>
+        // When a country is clicked
+        worldmap.hooks.click_state = function (id) {
+            const countryData = worldmap_mapdata.state_specific[id];
+            const countryName = countryData?.name || "Unknown Country";
+    
+            // Update the output paragraph with the country name
+            document.getElementById('output').textContent = `You clicked: ${countryName}`;
+    
+            // Fetch additional data dynamically from the backend
+            fetch(`/get-country-data/?name=${encodeURIComponent(countryName)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        const { name, population, capital, area } = data.data;
+                        document.getElementById('output').innerHTML = `
+                            <strong>${name}</strong><br>
+                            Population: ${population || 'N/A'}<br>
+                            Capital: ${capital || 'N/A'}<br>
+                            Area: ${area ? area + ' km²' : 'N/A'}
+                        `;
+                    } else {
+                        document.getElementById('output').textContent = data.error;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching country data:', error);
+                    document.getElementById('output').textContent = 'An error occurred while fetching data.';
+                });
+        };
+    </script> 
 </body>
 </html>

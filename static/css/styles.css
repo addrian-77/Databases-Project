@@ -11,6 +11,10 @@ header {
     justify-content: left;
 }
 
+html {
+    height: 100%
+}
+
 body {
     background-color: #ceddf5;
     height: 100%;
@@ -34,6 +38,12 @@ header p {
     padding-top: 14px;
     padding-left: 14px;
     color: white;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+    height: 100%;
 }
 
 footer {
