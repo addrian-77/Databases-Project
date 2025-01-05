@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Water Tips - Water Conservation</title>
+    <style>
+        /* Reset pentru toate elementele */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0f7fa;
+            overflow-x: hidden;
+        }
+
+        /* Navbar stilizat */
+        .navbar {
+            background-color: #00796b;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navbar a:hover {
+            color: #0288d1;
+        }
+
+        /* Border container */
+        .border-container {
+            border-top: 3px solid #004d40;
+            border-bottom: 3px solid #004d40;
+            padding: 20px;
+        }
+
+        /* Secțiunea de tips */
+        .container {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 36px;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            font-size: 20px;
+            color: #004d40;
+            margin-bottom: 30px;
+        }
+
+        /* Pahare de apă aranjate */
+        .water-glass {
+            position: relative;
+            width: 180px;
+            height: 250px;
+            background-image: url('https://i.pinimg.com/474x/bd/d0/a9/bdd0a9343a35f85b74d779761949012e.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: inline-block;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Textul din interiorul paharelor */
+        .water-glass p {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            color: #004d40;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        /* Imaginea picăturii de apă centrală */
+        .main-image {
+            width: 250px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        /* Call to action */
+        .call-to-action {
+            background-color: #00796b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .call-to-action a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .call-to-action a:hover {
+            color: #0288d1;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/watertips">Water Tips</a>
+        <a href="/projects">Projects</a>
+        <a href="/profile">Profile</a>
+        <a href="./login.html">Log in</a>
+    </nav>
+
+    <!-- Water Tips Section -->
+    <div class="border-container">
+        <div class="container">
+            <h1>Water Conservation Tips</h1>
+            <p>Conserve water with these simple and effective tips that can help make a positive impact on the environment.</p>
+        </div>
+    </div>
+
+    <!-- Imaginea picăturii de apă centrală -->
+    <img class="main-image" src="https://e7.pngegg.com/pngimages/276/297/png-clipart-water-efficiency-water-conservation-drinking-water-water-glass-drop-water-treatment-thumbnail.png" alt="Water Drop">
+
+    <!-- Pahare de apă aranjate pe stânga și dreapta -->
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; padding: 20px;">
+        <div class="water-glass">
+            <p>Turn off the tap while brushing</p>
+        </div>
+        <div class="water-glass">
+            <p>Fix leaky faucets</p>
+        </div>
+        <div class="water-glass">
+            <p>Install water-efficient fixtures</p>
+        </div>
+        <div class="water-glass">
+            <p>Use a water-saving showerhead</p>
+        </div>
+        <div class="water-glass">
+            <p>Collect rainwater</p>
+        </div>
+        <div class="water-glass">
+            <p>Reduce hose usage</p>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="call-to-action">
+        <p>Join the movement to conserve water and protect our planet.</p>
+        <a href="signup.html">Get Involved Now</a>
+    </div>
+
+</body>
+
+</html>
