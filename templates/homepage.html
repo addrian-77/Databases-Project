@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>		
+    <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
+    <title>Water Conservation</title>
+</head>
+<body>
+
+    <!-- Display the result dynamically -->
+    <!-- 
+    {% if result %}
+        <div>
+            <p>{{ result }}</p>
+        </div>
+    {% endif %} 
+    -->
+
+    <!-- header declaration -->
+    <header>
+        <div class="container">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About</a></li>
+                <!-- if not logged in -->
+                {% if user.is_authenticated %}
+                    <li class="login"><a href="logout/">Log out</a></li>
+                    <li class="login"><a href="account/">My account</a></li>
+                {% else %}
+                    <li class="login"><a href="login/">Log in</a></li>
+                {% endif %}
+
+                <!-- if logged in then show account button -->
+            </ul>
+        </div>
+    </header>
+    
+    <!-- the map div -->
+    <main>
+        <div class="container">
+            <div class="content">
+                <div class="row">
+                    <div id="mapdiv">
+                        <div id="map"></div>
+                        <p id="output">Click on a country to see its name.</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <h1>top countries</h1>
+                        <!-- create table based on leaderboard -->
+                    </div>
+                    <div class="col">
+                        <h2>most water</h2>
+                        <!-- create table based on leaderboard -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h1>most popular water technologies</h1>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>footer</p>
+        </div>
+    </footer>
+
+    <script>
+        // When a country is clicked
+        worldmap.hooks.click_state = function (id) {
+            const countryData = worldmap_mapdata.state_specific[id];
+            const countryName = countryData?.name || "Unknown Country";
+    
+            // Update the output paragraph with the country name
+            document.getElementById('output').textContent = `You clicked: ${countryName}`;
+    
+            // Fetch additional data dynamically from the backend
+            fetch(`/get-country-data/?name=${encodeURIComponent(countryName)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        const { name, population, capital, area } = data.data;
+                        document.getElementById('output').innerHTML = `
+                            <strong>${name}</strong><br>
+                            Population: ${population || 'N/A'}<br>
+                            Capital: ${capital || 'N/A'}<br>
+                            Area: ${area ? area + ' km²' : 'N/A'}
+                        `;
+                    } else {
+                        document.getElementById('output').textContent = data.error;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching country data:', error);
+                    document.getElementById('output').textContent = 'An error occurred while fetching data.';
+                });
+        };
+    </script> 
+</body>
+</html>
+

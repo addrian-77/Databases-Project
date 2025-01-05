@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>		
+    <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
+    <title>Water Conservation</title>
+</head>
+<body>
+
+    <!-- Display the result dynamically -->
+    <!-- 
+    {% if result %}
+        <div>
+            <p>{{ result }}</p>
+        </div>
+    {% endif %} 
+    -->
+
+    <!-- header declaration -->
+    <header>
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/">About</a></li>
+                <li class="login"><a href="/logout/">Log out</a></li>
+                <li class="login"><a href="/account/">My account</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <p>{{ user.username }}</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
