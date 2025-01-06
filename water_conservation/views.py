@@ -5,12 +5,29 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from techniques.models import WaterTip
 from projects.models import Country
-import json
+from django.http import JsonResponse
 
 def index_view(request):
-    countries = Country.objects.all().values('name')
-    countries_data = list(countries)
-    return render(request, 'homepage.html', {'countries': json.dumps(countries_data)})
+    return render(request, 'homepage.html')
+
+def get_country_data(request):
+    country_name = request.GET.get('name')
+
+    if not country_name:
+        return JsonResponse({'error': 'No country name provided'}, status=400)
+
+    try:
+        # Fetch the country object based on the name
+        country = Country.objects.get(name=country_name)
+        
+        # Prepare the data to send back
+        data = {
+            'name': country.name,
+        }
+        return JsonResponse({'success': True, 'data': data})
+
+    except Country.DoesNotExist:
+        return JsonResponse({'error': 'Country not found'}, status=404)
 
 def login_view(request):
     if request.method == 'POST':

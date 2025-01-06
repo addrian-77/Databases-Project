@@ -8,6 +8,49 @@
     <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
     <title>Water Conservation</title>
 </head>
+
+<style>
+    /* Popup styling */
+    .popup {
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        max-width: 250px;
+        z-index: 1000;
+        opacity: 0; /* Initially hidden */
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .popup.show {
+        opacity: 1; /* Fade-in effect */
+    }
+
+    /* Content styling */
+    #popup-content {
+        font-size: 14px;
+        display: block; /* Ensures content is rendered as block-level element */
+    }
+
+    /* Close button styling */
+    .popup .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        color: red;
+    }
+
+    /* Optional: Hover effect on the close button */
+    .popup .close:hover {
+        color: darkred;
+    }
+
+
+</style>
+
 <body>
 
     <!-- Display the result dynamically -->
@@ -45,13 +88,40 @@
                 <div class="row">
                     <div id="mapdiv">
                         <div id="map"></div>
-                        <div id="output">Click on a country to see its name.</div>
+                        <!-- This span will act as the popup -->
+                        <span id="popup" class="popup" style="display: none;">
+                            <span id="popup-content">
+                                <!-- Content will be dynamically inserted here -->
+                            </span>
+                            <span class="close" onclick="closePopup()">X</span>
+                        </span>
                     </div>
+                                        
                 </div>
                 
                 <div class="row">
                     <div class="col">
-                        <h1>top countries</h1>
+                        <p>Countries with the most technologies</p>
+                        <script>
+                            // create table based on leaderboard
+                            fetch(`/get_country_data/?name=${encodeURIComponent(countryName)}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    document.getElementById('popup-content').innerHTML = `
+                                        <strong>${data.data.name}</strong><br>
+                                        Population: ${data.data.population || 'N/A'}<br>
+                                        Capital: ${data.data.capital || 'N/A'}
+                                    `;
+                                } else {
+                                    document.getElementById('popup-content').innerHTML = 'Error fetching country data.';
+                                }
+                            })
+                            .catch(error => {
+                                console.error(error);
+                                document.getElementById('popup-content').innerHTML = 'An error occurred.';
+                            });
+                        </script>
                         <!-- create table based on leaderboard -->
                     </div>
                     <div class="col">
@@ -74,36 +144,68 @@
     </footer>
 
     <script>
-        console.log("working")
-        document.addEventListener('DOMContentLoaded', function () {
-            // Now it's safe to use the worldmap object
-    
-            worldmap.hooks.click_state = function (id) {
-                const countryData = worldmap_mapdata.state_specific[id];
-                console.log("passed")
-                const countryName = countryData?.name || "Unknown Country";
-                const countriesData = JSON.parse('{{ countries|safe|escapejs }}');
+        
+        simplemaps_worldmap.hooks.click_state = function (id) {
+            const countryData = simplemaps_worldmap_mapdata.state_specific[id];
+            const countryName = countryData?.name || "Unknown Country";
 
-                const additionalData = countriesData.find(c => c.name === countryName);
-    
-                document.getElementById('output').textContent = `You clicked: ${countryName}`;
-    
-                if (additionalData) {
-                    const { name, population, capital, area } = additionalData;
-                    document.getElementById('output').innerHTML = `
-                        <strong>${name}</strong><br>
-                        Population: ${population || 'N/A'}<br>
-                        Capital: ${capital || 'N/A'}<br>
-                        Area: ${area ? area + ' km²' : 'N/A'}
-                    `;
-                } else {
-                    document.getElementById('output').textContent = `No additional data found for ${countryName}.`;
-                }
-            };
-        });
+            // Capture the mouse event
+            const event = window.event; // Get the global event object
+            const mouseX = event.clientX; // X coordinate of the click
+            const mouseY = event.clientY; // Y coordinate of the click
+
+            // Adjust for popup positioning
+            const popupOffsetX = 10; // Offset to prevent overlap with the cursor
+            const popupOffsetY = 10;
+
+            // Position the popup near the mouse click
+            const popup = document.getElementById('popup');
+            popup.style.left = `${mouseX + popupOffsetX}px`;
+            popup.style.top = `${mouseY + popupOffsetY}px`;
+            popup.style.display = "block";
+            popup.classList.add('show'); // Add fade-in effect
+            event.stopPropagation();
+
+            // Fetch and update the popup content
+            fetch(`/get_country_data/?name=${encodeURIComponent(countryName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('popup-content').innerHTML = `
+                            <strong>${data.data.name}</strong><br>
+                            Population: ${data.data.population || 'N/A'}<br>
+                            Capital: ${data.data.capital || 'N/A'}
+                        `;
+                    } else {
+                        document.getElementById('popup-content').innerHTML = 'Error fetching country data.';
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById('popup-content').innerHTML = 'An error occurred.';
+                });
+        };
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = "none";
+        }
+
+        document.addEventListener("click", (click) => {
+            if (!document.getElementById('popup').contains(click.target)) {
+                closePopup();
+            }
+        })
+
+        document.addEventListener("mousedown", (mousedown) => {
+            if (!document.getElementById('popup').contains(mousedown.target)) {
+                closePopup();
+            }
+        })
+
     </script>
     
-    
+        
 </body>
 </html>
 

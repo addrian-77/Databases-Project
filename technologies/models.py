@@ -24,6 +24,15 @@ class Technology(models.Model):
 
     def __str__(self):
         return self.name
+    
+class TechnologyImplemented(models.Model):
+    technology = models.ForeignKey(Technology, on_delete=models.CASCADE)
+    project = models.ForeignKey('projects.Project', on_delete=models.CASCADE)
+    date = models.DateField()
+    country = models.ForeignKey('projects.Country', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.technology.name} at {self.project.project_name}"
 
 
 class TechnologyTechnique(models.Model):

@@ -9,9 +9,10 @@ class Country(models.Model):
 
 class Location(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Location in {self.country.name}"
+        return self.name
 
 
 class Project(models.Model):
