@@ -26,7 +26,7 @@ class about_other_scripts {
         if (!isMouseDown) return;
         e.preventDefault();
         const x = e.pageX - flashcardsContainer.offsetLeft;
-        const walk = (x - startX) * 2; // Scroll speed
+        const walk = (x - startX) * 1.5; // Scroll speed
         flashcardsContainer.scrollLeft = scrollLeft - walk;
         });
     }
@@ -84,8 +84,8 @@ class homepage_other_scripts {
     closePopupOnOutsideClick() {
         document.addEventListener("mousedown", (mousedown) => {
             if (!document.getElementById('popup').contains(mousedown.target)) {
-                closePopup();
+                this.closePopup();
             }
-        })
+        });
     }
 }
