@@ -97,3 +97,40 @@ li a:hover {
     text-decoration: none;
     color: white;
 }
+
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-width: 250px;
+    z-index: 1000;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.popup.show {
+    opacity: 1; /* Fade-in effect */
+}
+
+/* Content styling */
+#popup-content {
+    font-size: 14px;
+    display: block; /* Ensures content is rendered as block-level element */
+}
+
+/* Close button styling */
+.popup .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: red;
+}
+
+/* Optional: Hover effect on the close button */
+.popup .close:hover {
+    color: darkred;
+}

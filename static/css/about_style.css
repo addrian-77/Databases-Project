@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Full-screen layout */
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/022/408/423/small/creative-generative-ai-illustration-of-water-on-earth-globe-with-green-trees-photo.jpg'); /* Simple background image */
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* Navigation Bar */
+  .navbar {
+    background-color: #00796b; /* Deep green */
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0 15px;
+  }
+
+  .navbar a:hover {
+    color: #0288d1;
+  }
+
+  /* Container for About Section with Dark Green Border */
+  .about-container {
+    padding: 60px;
+    background-color: rgba(255, 255, 255, 0.9); /* White background for content */
+    border-radius: 15px;
+    border: 3px solid #004d40; /* Dark green border to match the navbar */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden; /* Fix for overflow */
+  }
+
+  /* Heading */
+  .about-container h1 {
+    color: #00796b;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .about-container h2 {
+    color: #00796b;
+    font-size: 28px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .about-container p {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  /* Flashcards */
+  .flashcards-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    cursor: grab;
+    overflow-x: hidden;
+    user-select: none; /* Previne selectarea textului în timpul swipe-ului */
+  }
+
+  .flashcard {
+    width: 500px;
+    background-color: #ffffff; /* White flashcards */
+    border: 3px solid #004d40; /* Dark green border */
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .flashcard h3 {
+    color: #00796b;
+    font-size: 28px; /* Larger title text */
+    margin-bottom: 20px;
+  }
+
+  .flashcard p {
+    font-size: 18px; /* Larger body text */
+    color: #333;
+  }
+
+  .flashcard ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .flashcard ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  /* Call to action */
+  .call-to-action {
+    background-color: #00796b;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .call-to-action a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .call-to-action a:hover {
+    color: #0288d1;
+  }

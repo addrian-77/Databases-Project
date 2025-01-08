@@ -7,10 +7,10 @@ var simplemaps_worldmap_mapdata={
     popups: "detect",
     
 		//State defaults
-		state_description: "State description",
+		state_description: "",
     state_color: "#88A4BC",
     state_hover_color: "#3B729F",
-    state_url: "https://simplemaps.com",
+    state_url: "",
     border_size: 1.5,
     border_color: "#ffffff",
     all_states_inactive: "no",
@@ -1572,7 +1572,31 @@ var simplemaps_worldmap_mapdata={
     }
   },
   locations: {
-    
+    "0": {
+      name: "Paris222",
+      lat: "48.866666670",
+      lng: "2.333333333",
+      color: "default",
+      description: "default",
+      url: "default"
+    },
+    "1": {
+      name: "Tokyo22",
+      lat: "35.666666670",
+      lng: "139.750000000",
+      color: "default",
+      description: "default",
+      url: "default"
+    },
+    "3": {
+      name: "New York222",
+      lat: "40.71",
+      lng: "-74.0059731",
+      description: "default",
+      color: "default",
+      url: "default",
+      size: "default"
+    }
   },
   labels: {}
 };

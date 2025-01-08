@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Full-screen layout with Flexbox */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  display: flex;
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  background-image: url('https://img.freepik.com/premium-photo/water-conservation-protecting-planet_864588-79358.jpg?w=740'); /* New vibrant background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+/* Container for form */
+.form-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Keep background light */
+  border-radius: 15px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  backdrop-filter: blur(8px); /* Blurs the background */
+}
+/* Form title styling */
+.form-container h2 {
+  color: #00796b;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+/* Input fields styling */
+.form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  border: 1px solid #00796b;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+/* Input hover/focus effects */
+.form-control:focus, .form-control:hover {
+  border-color: #0288d1;
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+}
+/* Submit button styling (green) */
+.btn {
+  background-color: #00796b; /* Green color for the button */
+  color: white;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+/* Button hover effect */
+.btn:hover {
+  color: white;
+  background-color: #004d40; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+/* Footer styling */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 15px;
+  color: #004d40;
+}
+.footer a {
+  text-decoration: none;
+  color: #0288d1;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+/* Welcome message */
+.welcome-message {
+  font-size: 28px;
+  color: #00796b; /* Green color for the welcome message */
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 5px rgba(209, 195, 195, 0.4);
+  text-align: center;
+}

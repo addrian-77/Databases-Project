@@ -3,31 +3,43 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.contrib import messages
-from techniques.models import WaterTip
-from projects.models import Country
+from database.models import WaterTip
+from database.models import Country
+from database.models import AboutMessages
 from django.http import JsonResponse
 
-def index_view(request):
+#PAGES VIEWS
+
+def homepage_view(request):
     return render(request, 'homepage.html')
 
-def get_country_data(request):
-    country_name = request.GET.get('name')
+def profile_view(request):
+    is_logged_in = User.is_authenticated
+    # print("user logged in")
+    if is_logged_in:
+        return render(request, 'profile.html')
+    else:
+        return redirect('/')
+    
+def about_view(request):
+    return render(request, 'about.html', {'about_messages': AboutMessages.objects.all()})
 
-    if not country_name:
-        return JsonResponse({'error': 'No country name provided'}, status=400)
+def watertips_view(request):
+    if request.method == 'POST':
+        # Preluăm datele din formular
+        tip = request.POST['tip']
+        # Creăm un obiect nou
+        watertip = WaterTip.objects.create(tip=tip)
+        watertip.save()
+        # Mesaj de succes și redirecționare către pagina de watertips
+        # messages.success(request, 'Water tip added successfully!')
+        return redirect('watertips')
+    return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
-    try:
-        # Fetch the country object based on the name
-        country = Country.objects.get(name=country_name)
-        
-        # Prepare the data to send back
-        data = {
-            'name': country.name,
-        }
-        return JsonResponse({'success': True, 'data': data})
+def projects_view(request):
+    return render(request, 'projects.html')
 
-    except Country.DoesNotExist:
-        return JsonResponse({'error': 'Country not found'}, status=404)
+#AUTHENTICATION VIEWS
 
 def login_view(request):
     if request.method == 'POST':
@@ -54,33 +66,9 @@ def login_view(request):
 
     return render(request, 'login.html')
 
-
 def logout_view(request):
     logout(request)
     return redirect('/')
-
-def profile_view(request):
-    is_logged_in = User.is_authenticated
-    # print("user logged in")
-    if is_logged_in:
-        return render(request, 'profile.html')
-    else:
-        return redirect('/')
-    
-def about_view(request):
-    return render(request, 'about.html')
-
-def watertips_view(request):
-    if request.method == 'POST':
-        # Preluăm datele din formular
-        tip = request.POST['tip']
-        # Creăm un obiect nou
-        watertip = WaterTip.objects.create(tip=tip)
-        watertip.save()
-        # Mesaj de succes și redirecționare către pagina de watertips
-        # messages.success(request, 'Water tip added successfully!')
-        return redirect('watertips')
-    return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
 def signup_view(request):
     if request.method == 'POST':
@@ -105,3 +93,25 @@ def signup_view(request):
 
     # Renderizează pagina de signup
     return render(request, 'signup.html')
+
+
+#OTHER FUNCTIONS
+
+def get_country_data(request):
+    country_name = request.GET.get('name')
+
+    if not country_name:
+        return JsonResponse({'error': 'No country name provided'}, status=400)
+
+    try:
+        # Fetch the country object based on the name
+        country = Country.objects.get(name=country_name)
+        
+        # Prepare the data to send back
+        data = {
+            'name': country.name,
+        }
+        return JsonResponse({'success': True, 'data': data})
+
+    except Country.DoesNotExist:
+        return JsonResponse({'error': 'Country not found'}, status=404)

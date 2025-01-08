@@ -7,150 +7,16 @@
   
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-  <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/about_style.css' %}">
+  <script  type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
+  <script  type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
   
-  <style>
-    /* Basic Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* Full-screen layout */
-    html, body {
-      height: 100%;
-      width: 100%;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-image: url('https://static.vecteezy.com/system/resources/thumbnails/022/408/423/small/creative-generative-ai-illustration-of-water-on-earth-globe-with-green-trees-photo.jpg'); /* Simple background image */
-      background-size: cover;
-      background-position: center;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    /* Navigation Bar */
-    .navbar {
-      background-color: #00796b; /* Deep green */
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .navbar a {
-      color: white;
-      font-size: 18px;
-      text-decoration: none;
-      margin: 0 15px;
-    }
-
-    .navbar a:hover {
-      color: #0288d1;
-    }
-
-    /* Container for About Section with Dark Green Border */
-    .about-container {
-      padding: 60px;
-      background-color: rgba(255, 255, 255, 0.9); /* White background for content */
-      border-radius: 15px;
-      border: 3px solid #004d40; /* Dark green border to match the navbar */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      margin-top: 20px;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      overflow: hidden; /* Fix for overflow */
-    }
-
-    /* Heading */
-    .about-container h1 {
-      color: #00796b;
-      font-size: 32px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .about-container h2 {
-      color: #00796b;
-      font-size: 28px;
-      margin-top: 40px;
-      margin-bottom: 20px;
-    }
-
-    .about-container p {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-
-    /* Flashcards */
-    .flashcards-container {
-      display: flex;
-      gap: 20px;
-      padding: 20px;
-      cursor: grab;
-      overflow-x: hidden;
-      user-select: none; /* Previne selectarea textului în timpul swipe-ului */
-    }
-
-    .flashcard {
-      width: 500px;
-      background-color: #ffffff; /* White flashcards */
-      border: 3px solid #004d40; /* Dark green border */
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-    }
-
-    .flashcard h3 {
-      color: #00796b;
-      font-size: 28px; /* Larger title text */
-      margin-bottom: 20px;
-    }
-
-    .flashcard p {
-      font-size: 18px; /* Larger body text */
-      color: #333;
-    }
-
-    .flashcard ul {
-      margin-left: 20px;
-      margin-bottom: 20px;
-    }
-
-    .flashcard ul li {
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    /* Call to action */
-    .call-to-action {
-      background-color: #00796b;
-      color: white;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .call-to-action a {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .call-to-action a:hover {
-      color: #0288d1;
-    }
-
-  </style>
 </head>
-
+<script>
+  const about_other_caller = new about_other_scripts();
+</script>
 <body>
+  
   <!-- Navigation Bar -->
   <nav class="navbar">
     <a href="/">Home</a>
@@ -172,77 +38,13 @@
     <!-- Flashcards Section -->
     <div class="flashcards-container" id="flashcardsContainer">
 
-      <!-- Flashcard 1: The Global Water Crisis -->
-      <div class="flashcard">
-        <h3>The Global Water Crisis</h3>
-        <p>
-          Water is vital for life, yet more than 2 billion people worldwide are affected by water scarcity. As global demand 
-          for freshwater rises, our planet’s water resources are under threat. Climate change is amplifying this crisis, making 
-          water more scarce, unreliable, and polluted.
-        </p>
-      </div>
-
-      <!-- Flashcard 2: Impact of Climate Change on Water Resources -->
-      <div class="flashcard">
-        <h3>Impact of Climate Change on Water Resources</h3>
-        <p>
-          Climate change is altering rainfall patterns, increasing evaporation rates, and causing extreme weather events like 
-          droughts and floods. These changes disrupt natural water cycles and threaten the stability of freshwater supplies. 
-          Without effective action, these disruptions will only worsen.
-        </p>
-      </div>
-
-      <!-- Flashcard 3: The Role of Water Conservation -->
-      <div class="flashcard">
-        <h3>The Role of Water Conservation</h3>
-        <p>
-          Water conservation plays a key role in mitigating the effects of climate change. By using water more efficiently, 
-          protecting ecosystems, and supporting sustainable water management practices, we can ensure a more reliable and 
-          secure water future for generations to come. Every small step contributes to making a big difference.
-        </p>
-      </div>
-
-      <!-- Flashcard 4: What This App Does -->
-      <div class="flashcard">
-        <h3>What This App Does</h3>
-        <p>
-          This app is dedicated to empowering individuals, communities, and organizations to take action for water conservation. 
-          By offering personalized tracking, educational content, interactive challenges, and live data on water use, this app 
-          provides users with the tools they need to make a meaningful impact.
-        </p>
-        <ul>
-          <li><strong>Track Water Usage:</strong> Monitor your daily water consumption and receive customized tips to reduce waste.</li>
-          <li><strong>Engage in Challenges:</strong> Participate in exciting water-saving challenges that encourage mindful water usage.</li>
-          <li><strong>Educational Content:</strong> Learn about the global water crisis, its impact, and how you can help.</li>
-          <li><strong>Real-Time Data:</strong> Stay informed about global water usage statistics and water conservation efforts.</li>
-        </ul>
-      </div>
-
-      <!-- Flashcard 5: Ways You Can Save Water -->
-      <div class="flashcard">
-        <h3>Ways You Can Save Water</h3>
-        <p>
-          Conserving water starts with simple daily habits. There are numerous ways you can reduce your water usage and make 
-          a positive impact, such as:
-        </p>
-        <ul>
-          <li>Turn off the tap while brushing your teeth.</li>
-          <li>Fix leaky faucets to prevent water wastage.</li>
-          <li>Install water-efficient appliances.</li>
-          <li>Reduce shower time to save gallons of water.</li>
-        </ul>
-      </div>
-
-      <!-- Flashcard 6: Importance of Protecting Water Sources -->
-      <div class="flashcard">
-        <h3>Importance of Protecting Water Sources</h3>
-        <p>
-          Protecting natural water sources is essential for maintaining a healthy ecosystem and ensuring access to clean water 
-          for future generations. Preventing pollution, deforestation, and unsustainable practices is vital in preserving our 
-          freshwater resources.
-        </p>
-      </div>
-
+      <!-- populate flashcards from database -->
+      {% for message in about_messages %}
+        <div class="flashcard">
+          <h3>{{ message.title }}</h3>
+          {{ message.message|safe }}
+        </div>
+      {% endfor %}
     </div>
 
     {% if user.is_authenticated %}
@@ -257,39 +59,8 @@
       </div>
     {% endif %}
   </div>
-
-  <!-- JavaScript for Mouse Swipe Navigation -->
   <script>
-    let flashcardsContainer = document.getElementById('flashcardsContainer');
-    let isMouseDown = false;
-    let startX;
-    let scrollLeft;
-
-    flashcardsContainer.addEventListener('mousedown', (e) => {
-      isMouseDown = true;
-      startX = e.pageX - flashcardsContainer.offsetLeft;
-      scrollLeft = flashcardsContainer.scrollLeft;
-      flashcardsContainer.style.cursor = 'grabbing';
-    });
-
-    flashcardsContainer.addEventListener('mouseleave', () => {
-      isMouseDown = false;
-      flashcardsContainer.style.cursor = 'grab';
-    });
-
-    flashcardsContainer.addEventListener('mouseup', () => {
-      isMouseDown = false;
-      flashcardsContainer.style.cursor = 'grab';
-    });
-
-    flashcardsContainer.addEventListener('mousemove', (e) => {
-      if (!isMouseDown) return;
-      e.preventDefault();
-      const x = e.pageX - flashcardsContainer.offsetLeft;
-      const walk = (x - startX) * 2; // Scroll speed
-      flashcardsContainer.scrollLeft = scrollLeft - walk;
-    });
+    about_other_caller.mouse_swipe_behaiviour()
   </script>
-
 </body>
 </html>

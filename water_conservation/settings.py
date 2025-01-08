@@ -36,13 +36,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 # Application definition
 
 INSTALLED_APPS = [
-    'maintenance',
-    'projects',
-    'stakeholders',
-    'techniques',
-    'technologies',
-    'training_and_research',
-    'usage_data',
+    'database',
     'water_conservation',
     'django.contrib.admin',
     'django.contrib.auth',
