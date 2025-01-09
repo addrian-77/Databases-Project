@@ -26,49 +26,55 @@
     </nav>
 
     <!-- Water Tips Section -->
-    <div class="border-container">
-        <div class="container">
-            <h1>Water Conservation Tips</h1>
-            <p>Conserve water with these simple and effective tips that can help make a positive impact on the environment.</p>
+    <div class="top-container">
+        <div class="border-container">
+            <div class="container">
+                <h1>Water Conservation Tips</h1>
+            </div>
         </div>
     </div>
 
     <!-- Imaginea picăturii de apă centrală -->
 
     <!-- Pahare de apă aranjate pe stânga și dreapta -->
-    <div class="system">
-        <div class="central-point">
-            {% for tip in watertips %}
-                <div class="orbit">
-                    <div class="water-glass">
-                        <p>{{ tip.tip }}</p>
+    <div class="systemdiv">
+        <div class="system">
+            <div class="central-point">
+                {% for tip in watertips %}
+                    <div class="orbit">
+                        <div class="water-glass">
+                            <p>{{ tip.tip }}</p>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 
-    <div>
-        <p>Got any water saving tips? Consider sharing them with us!</p>
-        <form action="/watertips/" method="post">
-            {% csrf_token %}
-            <input type="text" placeholder="Enter your water saving tip" id="tip" name="tip" required>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+    <div id="bottom-container">
+            <div class="border-container">
+                <p>Conserve water with these simple and effective tips that can help make a positive impact on the environment.</p>
+                <p>Got any water saving tips? Consider sharing them with us!</p>
+                <form action="/watertips/" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Enter your water saving tip" id="tip" name="tip" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
 
     <!-- Call to Action -->
-    {% if user.is_authenticated %}
-      <div class="call-to-action">
-        <p>Thank you for being involved, {{ user.username }}. Every user gets us one step closer to success!</p>
-      </div>
-    {% else %}
-    <!-- Call to Action -->
-      <div class="call-to-action">
-        <p>Join the global movement towards sustainable water use and conservation.</p>
-        <a href="/signup">Get Involved Now</a>
-      </div>
-    {% endif %}
+            {% if user.is_authenticated %}
+            <div class="call-to-action">
+                <p>Thank you for being involved, {{ user.username }}. Every user gets us one step closer to success!</p>
+            </div>
+            {% else %}
+            <!-- Call to Action -->
+            <div class="call-to-action">
+                <p>Join the global movement towards sustainable water use and conservation.</p>
+                <a href="/signup">Get Involved Now</a>
+            </div>
+            {% endif %}
+    </div>
 
 </body>
 
