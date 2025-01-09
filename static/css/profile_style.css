@@ -1,0 +1,136 @@
+#mapdiv {
+    height: 50%;
+    padding: 50px;
+}
+
+header {
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+html {
+    height: 100%
+}
+
+body {
+    background-color: #ceddf5;
+    height: 100%;
+    margin: 0;
+}
+
+body .container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    background-color: #ebeef0;
+}
+
+header .container {
+    background-color: #333;
+    padding-top: 0px;
+    padding: 0px;
+}
+
+header p {
+    padding-top: 14px;
+    padding-left: 14px;
+    color: white;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+    height: 100%;
+}
+
+footer {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+}
+
+footer p {
+    font-size: small;
+    padding-left: 14px;
+    color: white;
+    margin: 0;
+}
+
+footer .container {
+    background-color: #333;
+    padding: 0px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li.login {
+    float: right
+}
+
+li a {
+    font-size: large;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #157347;
+    text-decoration: none;
+    color: white;
+}
+
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-width: 250px;
+    z-index: 1000;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.popup.show {
+    opacity: 1; /* Fade-in effect */
+}
+
+/* Content styling */
+#popup-content {
+    font-size: 14px;
+    display: block; /* Ensures content is rendered as block-level element */
+}
+
+/* Close button styling */
+.popup .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: red;
+}
+
+/* Optional: Hover effect on the close button */
+.popup .close:hover {
+    color: darkred;
+}
