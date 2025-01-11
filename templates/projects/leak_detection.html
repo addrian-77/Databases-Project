@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>🚰 Personalize Your Leak Detection and Fixing Project</h1>
+
+  <form action="/projects/save/" method="post">
+    {% csrf_token %}
+    <label for="leak_type">Type of Leaks (e.g., faucet, pipe, toilet):</label>
+    <input type="text" id="leak_type" name="leak_type" required>
+
+    <label for="detection_method">Preferred Detection Method:</label>
+    <select id="detection_method" name="detection_method" required>
+      <option value="manual">Manual Inspection</option>
+      <option value="smart-meter">Smart Meter Detection</option>
+    </select>
+
+    <label for="fix_plan">What is your plan to fix the leaks?</label>
+    <textarea id="fix_plan" name="fix_plan" rows="3" required></textarea>
+
+    <button type="submit" class="btn">Save Project</button>
+  </form>
+{% endblock %}

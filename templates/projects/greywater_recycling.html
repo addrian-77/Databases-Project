@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>♻️ Personalize Your Greywater Recycling Project</h1>
+
+  <form action="/projects/save/" method="post">
+    {% csrf_token %}
+    <label for="source">Greywater Source (e.g., sinks, showers):</label>
+    <input type="text" id="source" name="source" required>
+
+    <label for="recycling_system">Recycling System Type:</label>
+    <select id="recycling_system" name="recycling_system" required>
+      <option value="basic">Basic Filtration</option>
+      <option value="advanced">Advanced Filtration</option>
+    </select>
+
+    <label for="usage">How will you use recycled water?</label>
+    <textarea id="usage" name="usage" rows="3" required></textarea>
+
+    <button type="submit" class="btn">Save Project</button>
+  </form>
+{% endblock %}

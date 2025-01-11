@@ -1,88 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/homepage_style.css' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
-    <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>		
-    <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
-    <script  type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
-    <script  type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
+    <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
     <title>Water Conservation</title>
 </head>
 
-<script>
-    const homepage_other_caller = new homepage_other_scripts();
-    const homepage_database_caller = new homepage_database_scripts();
-</script>
-
 <body>
 
-    <!-- header declaration -->
-    <header>
-        <div class="container">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About</a></li>
-                <!-- if not logged in -->
-                {% if user.is_authenticated %}
-                    <li class="login"><a href="/logout/">Log out</a></li>
-                    <li class="login"><a href="/profile/">{{ user.username }}</a></li>
-                {% else %}
-                    <li class="login"><a href="/login/">Log in</a></li>
-                {% endif %}
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/water-tips/">Water Tips</a></li>
+            <li><a href="/projects/">Projects</a></li>
+            {% if user.is_authenticated %}
+                <li class="login"><a href="/logout/">Log out</a></li>
+                <li class="login"><a href="/profile/">{{ user.username }}</a></li>
+            {% else %}
+                <li class="login"><a href="/login/">Log in</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 
-                <!-- if logged in then show account button -->
-            </ul>
+    <!-- The Map Div -->
+    <div class="map-container">
+        <div id="mapdiv">
+            <div id="map"></div>
+
+            <!-- Popup -->
+            <span id="popup" class="popup" style="display: none;">
+                <span id="popup-content">
+                    <script>homepage_database_caller.get_country_data();</script>
+                </span>
+                <span class="close" onclick="homepage_other_caller.closePopup()">X</span>
+            </span>
         </div>
-    </header>
-    
-    <!-- the map div -->
-        <div class="container">
-            <div class="content">
-                <div class="row">
-                    <div id="mapdiv">
-                        <div id="map"></div>
-                        <!-- This span will act as the popup -->
-                        <span id="popup" class="popup" style="display: none;">
-                            <span id="popup-content">
-                                <script>homepage_database_caller.get_country_data();</script>
-                                <!-- Content will be dynamically inserted here -->
-                            </span>
-                            <span class="close" onclick="homepage_other_caller.closePopup()">X</span>
-                        </span>
-                    </div>
-                                        
-                </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <p>Countries with the most technologies</p>
-                        <!-- create table based on leaderboard -->
-                    </div>
-                    <div class="col">
-                        <h2>most water</h2>
-                        <!-- create table based on leaderboard -->
-                    </div>
-                </div>
+    </div>
 
-                <div class="row">
-                    <h1>most popular water technologies</h1>
-                </div>
+    <!-- Information Cards -->
+    <div class="info-section">
+        <div class="row">
+            <div class="col">
+                <h3>Countries with the Most Technologies</h3>
+                <p>Here will be a dynamically generated leaderboard table.</p>
+            </div>
+            <div class="col">
+                <h3>Most Water Saved</h3>
+                <p>Another leaderboard table here.</p>
             </div>
         </div>
 
-    <footer>
-        <div class="container">
-            <p>footer</p>
+        <div class="row">
+            <h3>Most Popular Water Technologies</h3>
         </div>
-    </footer> 
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Water Conservation Project</p>
+    </footer>
+
+    <!-- JavaScript Calls -->
     <script>
         homepage_other_caller.map_click_behaviour();
         homepage_other_caller.closePopupOnOutsideClick();
-    </script>  
-        
-</body>
-</html>
+    </script>
 
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>📢 Personalize Your Water Awareness Campaign</h1>
+
+  <form action="/projects/save/" method="post">
+    {% csrf_token %}
+    <label for="target_audience">Target Audience (e.g., employees, community):</label>
+    <input type="text" id="target_audience" name="target_audience" required>
+
+    <label for="campaign_type">Campaign Type:</label>
+    <select id="campaign_type" name="campaign_type" required>
+      <option value="workshop">Workshop</option>
+      <option value="social-media">Social Media Campaign</option>
+    </select>
+
+    <label for="tools">What tools will you use?</label>
+    <textarea id="tools" name="tools" rows="3" required></textarea>
+
+    <button type="submit" class="btn">Save Project</button>
+  </form>
+{% endblock %}

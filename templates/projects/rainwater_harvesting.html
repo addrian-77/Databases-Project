@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>🌧️ Personalize Your Rainwater Harvesting Project</h1>
+
+  <form action="/projects/save/" method="post">
+    {% csrf_token %}
+    <label for="collection_area">Collection Area (e.g., rooftop, yard):</label>
+    <input type="text" id="collection_area" name="collection_area" required>
+
+    <label for="storage_solution">Storage Solution (e.g., barrels, tanks):</label>
+    <input type="text" id="storage_solution" name="storage_solution" required>
+
+    <label for="filtration_system">Do you plan to install a filtration system?</label>
+    <select id="filtration_system" name="filtration_system" required>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <button type="submit" class="btn">Save Project</button>
+  </form>
+{% endblock %}

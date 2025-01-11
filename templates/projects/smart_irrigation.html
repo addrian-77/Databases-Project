@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>💧 Personalize Your Smart Irrigation System</h1>
+
+  <form action="/projects/save/" method="post">
+    {% csrf_token %}
+    <label for="irrigation_type">Irrigation Type (e.g., drip, sprinkler):</label>
+    <input type="text" id="irrigation_type" name="irrigation_type" required>
+
+    <label for="sensors">Do you plan to use sensors?</label>
+    <select id="sensors" name="sensors" required>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label for="water_saving_features">Water-Saving Features:</label>
+    <textarea id="water_saving_features" name="water_saving_features" rows="3" required></textarea>
+
+    <button type="submit" class="btn">Save Project</button>
+  </form>
+{% endblock %}
