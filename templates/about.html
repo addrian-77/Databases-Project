@@ -19,16 +19,18 @@
   
   <!-- Navigation Bar -->
   <nav class="navbar">
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/watertips/">Water Tips</a>
-    <a href="/projects/">Projects</a>
-    {% if user.is_authenticated %}
-      <a href="/profile/">{{ user.username }}</a>
-      <a href="/logout/">Log out</a>
-    {% else %}
-      <a href="/login/">Log in</a>
-    {% endif %}
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/watertips/">Water Tips</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      {% if user.is_authenticated %}
+        <li class="login"><a href="/logout/">Log out</a></li>
+        <li class="login"><a href="/profile/">{{ user.username }}</a></li>
+      {% else %}
+        <li class="login"><a href="/login/">Log in</a></li>
+      {% endif %}
+    </ul>
   </nav>
 
   <!-- About Section -->

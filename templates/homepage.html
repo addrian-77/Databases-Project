@@ -13,6 +13,11 @@
     <title>Water Conservation</title>
 </head>
 
+<script>
+    const homepage_database_caller = new homepage_database_scripts();
+    const homepage_other_caller = new homepage_other_scripts();
+</script>
+
 <body>
 
     <!-- Navigation Bar -->
@@ -20,7 +25,7 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/about/">About</a></li>
-            <li><a href="/water-tips/">Water Tips</a></li>
+            <li><a href="/watertips/">Water Tips</a></li>
             <li><a href="/projects/">Projects</a></li>
             {% if user.is_authenticated %}
                 <li class="login"><a href="/logout/">Log out</a></li>
@@ -39,7 +44,7 @@
             <!-- Popup -->
             <span id="popup" class="popup" style="display: none;">
                 <span id="popup-content">
-                    <script>homepage_database_caller.get_country_data();</script>
+                    <!-- <script>homepage_database_caller.get_country_data();</script> -->
                 </span>
                 <span class="close" onclick="homepage_other_caller.closePopup()">X</span>
             </span>
@@ -73,6 +78,7 @@
     <script>
         homepage_other_caller.map_click_behaviour();
         homepage_other_caller.closePopupOnOutsideClick();
+        homepage_other_caller.handleScrollBehavior();
     </script>
 
 </body>

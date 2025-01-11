@@ -16,10 +16,20 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=100)
+    description = models.TextField()
 
+    def __str__(self):
+        return self.category_name
+    
 class Project(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
+    description = models.TextField()
+    goals = models.TextField()
+    water_savings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return self.project_name
@@ -67,6 +77,7 @@ class WaterTip(models.Model):
 
     def __str__(self):
         return self.tip
+    
 
 class AboutMessages(models.Model):
     title = models.CharField(max_length=100)
@@ -75,14 +86,6 @@ class AboutMessages(models.Model):
     def __str__(self):
         return f"Title: {self.title}, message: {self.message[:30]}..."
     
-
-class Category(models.Model):
-    category_name = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.category_name
-
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)

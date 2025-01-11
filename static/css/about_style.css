@@ -6,12 +6,13 @@
 
   /* Full-screen layout */
   html, body {
-    height: 100%;
     width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    zoom: 95%;
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
     background-image: url('https://static.vecteezy.com/system/resources/thumbnails/022/408/423/small/creative-generative-ai-illustration-of-water-on-earth-globe-with-green-trees-photo.jpg'); /* Simple background image */
     background-size: cover;
     background-position: center;
@@ -19,23 +20,46 @@
     line-height: 1.6;
   }
 
-  /* Navigation Bar */
   .navbar {
-    background-color: #00796b; /* Deep green */
+    background-color: #00796b; /* Albastru închis */
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-  .navbar a {
-    color: white;
-    font-size: 18px;
+.navbar ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.navbar li {
+    margin-right: 20px;
+    float: left;
+}
+
+.navbar a {
     text-decoration: none;
-    margin: 0 15px;
-  }
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
 
-  .navbar a:hover {
-    color: #0288d1;
-  }
+.navbar a:hover {
+    background-color: #002244; /* Un albastru și mai închis pentru hover */
+}
+
+/* Stilizarea pentru elementele din dreapta */
+.navbar li.login {
+        
+    float: right;
+}
 
   /* Container for About Section with Dark Green Border */
   .about-container {

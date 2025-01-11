@@ -1,4 +1,9 @@
 /* 🌊 General Styles */
+html, body {
+    zoom: 95%;
+
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f4f8;
@@ -122,36 +127,46 @@ button:active {
   }
 }
 /* Navigation Bar Styling */
+/* Navbar stilizat */
 .navbar {
-  background-color: #006d5b;
-  padding: 10px 20px;
+    background-color: #00796b; /* Albastru închis */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
 }
 
 .navbar li {
-  display: inline;
+    margin-right: 20px;
+    float: left;
 }
 
 .navbar a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 8px 16px;
-  transition: background-color 0.3s;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 .navbar a:hover {
-  background-color: #004c40;
-  border-radius: 4px;
+    background-color: #002244; /* Un albastru și mai închis pentru hover */
+}
+
+/* Stilizarea pentru elementele din dreapta */
+.navbar li.login {
+        
+    float: right;
 }
 /* General Styling for Forms */
 form {

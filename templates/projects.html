@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>About - Water Conservation</title>
-  
+
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
   <link rel="stylesheet" href="{% static 'css/projects_style.css' %}">
-  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
-  <script  type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
-  <script  type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
-  <script  type="text/javascript" src="{% static 'js/projects.js' %}"></script>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
+  <script type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/projects.js' %}"></script>
 </head>
 
 <body>
@@ -20,13 +20,18 @@
   <!-- Background Image -->
   <div class="background-image"></div>
 
-<nav class="navbar">
+  <nav class="navbar">
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about/">About</a></li>
-      <li><a href="/water-tips/">Water Tips</a></li>
+      <li><a href="/watertips/">Water Tips</a></li>
       <li><a href="/projects/">Projects</a></li>
-      <li><a href="/login/">Log in</a></li>
+      {% if user.is_authenticated %}
+      <li class="login"><a href="/logout/">Log out</a></li>
+      <li class="login"><a href="/profile/">{{ user.username }}</a></li>
+      {% else %}
+      <li class="login"><a href="/login/">Log in</a></li>
+      {% endif %}
     </ul>
   </nav>
 
@@ -41,11 +46,24 @@
     </div>
 
     <!-- Quiz Form -->
-    <form id="projectForm">
+    <form id="projectForm" action="/projects/" method="POST">
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
       <!-- Question 1 -->
       <div class="form-step active">
+        <h2>Choose a project category:</h2>
+        <!-- Dropdown-ul cu categoriile proiectelor -->
+        <select id="category" name="category" onchange="" required>
+          <option value="">Select a category</option>
+          {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+          {% endfor %}
+        </select>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+      <div class="form-step">
         <h2>What is your project's name?</h2>
         <input type="text" id="projectName" name="projectName" placeholder="Enter project name" required>
+        <button type="button" class="prev-btn">Back</button>
         <button type="button" class="next-btn">Next</button>
       </div>
 
@@ -60,7 +78,8 @@
       <!-- Question 3 -->
       <div class="form-step">
         <h2>Describe your project.</h2>
-        <textarea id="description" name="description" rows="3" placeholder="Enter project description" required></textarea>
+        <textarea id="description" name="description" rows="3" placeholder="Enter project description"
+          required></textarea>
         <button type="button" class="prev-btn">Back</button>
         <button type="button" class="next-btn">Next</button>
       </div>
@@ -77,26 +96,9 @@
       <div class="form-step">
         <h2>Estimated Water Savings (Liters/Gallons):</h2>
         <input type="number" id="waterSavings" name="waterSavings" placeholder="Enter water savings" required>
+        <!-- Butonul Next care face redirecționarea -->
         <button type="button" class="prev-btn">Back</button>
-        <button type="button" class="next-btn">Next</button>
-      </div>
-
-      <!-- Question 6 -->
-      <div class="form-step">
-        <h2>Choose a project category:</h2>
-       <!-- Dropdown-ul cu categoriile proiectelor -->
-    <select id="category" name="category" required>
-      <option value="">Select a category</option>
-      <option value="rainwater-harvesting">Rainwater Harvesting</option>
-      <option value="greywater-recycling">Greywater Recycling</option>
-      <option value="leak-detection">Leak Detection and Fixing</option>
-      <option value="awareness-campaign">Water Awareness Campaign</option>
-      <option value="smart-irrigation">Smart Irrigation Systems</option>
-      <option value="appliances-installation">Water-Efficient Appliances Installation</option>
-    </select>
-
-<!-- Butonul Next care face redirecționarea -->
-<button type="button" id="nextBtn">Next</button>
+        <button type="submit" id="nextBtn">Submit</button>
       </div>
 
     </form>
@@ -106,5 +108,4 @@
 
   </div>
 
-  <script src="script.js"></script>
 </body>

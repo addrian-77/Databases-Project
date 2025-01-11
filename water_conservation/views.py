@@ -3,9 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.contrib import messages
-from database.models import WaterTip
-from database.models import Country
-from database.models import AboutMessages
+from database.models import *
 from django.http import JsonResponse
 
 #PAGES VIEWS
@@ -37,7 +35,22 @@ def watertips_view(request):
     return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
 def projects_view(request):
-    return render(request, 'projects.html')
+    if request.method == 'POST':
+        # Preluăm datele din formular
+        category = request.POST['category']
+        project_name = request.POST['projectName']
+        company_name = request.POST['companyName']
+        description = request.POST['description']
+        goals = request.POST['goals']
+        water_savings = request.POST['waterSavings']
+        # Creăm un obiect nou
+        category_obj = Category.objects.get(category_name=category)
+        project = Project.objects.create(category=category_obj, prsoject_name=project_name, company_name = company_name, description=description, goals = goals, water_savings = water_savings)
+        project.save()
+        # Mesaj de succes și redirecționare către pagina de projects
+        messages.success(request, 'Project added successfully!')
+        return redirect('projects')
+    return render(request, 'projects.html', {'categories': Category.objects.all()})
 
 #AUTHENTICATION VIEWS
 
@@ -115,3 +128,22 @@ def get_country_data(request):
 
     except Country.DoesNotExist:
         return JsonResponse({'error': 'Country not found'}, status=404)
+
+def submit_project(request):
+    category = request.POST.get('category')
+    project_name = request.POST.get('projectName')
+    company_name = request.POST.get('companyName')
+    description = request.POST.get('description')
+    goals = request.POST.get('goals')
+    water_savings = request.POST.get('waterSavings')
+
+    if not category or not project_name or not company_name or not description or not goals or not water_savings:
+        return JsonResponse({'error': 'Missing required fields'}, status=400)
+    
+    try:
+        category_obj = Category.objects.get(category_name=category)
+        project = Project.objects.create(category=category_obj, project_name=project_name, company_name=company_name, description=description, goals=goals, water_savings=water_savings)
+        project.save()
+        return JsonResponse({'success': True, 'message': 'Project added successfully!'})  # Return a success message
+    except Category.DoesNotExist:
+        return JsonResponse({'error': 'Category not found'}, status=404)
