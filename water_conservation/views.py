@@ -31,7 +31,7 @@ def watertips_view(request):
         # Preluăm datele din formular
         tip = request.POST['tip']
         # Creăm un obiect nou
-        watertip = WaterTip.objects.create(tip=tip)
+        watertip = WaterTip.objects.create(tip=tip, user=request.user)
         watertip.save()
         # Mesaj de succes și redirecționare către pagina de watertips
         # messages.success(request, 'Water tip added successfully!')

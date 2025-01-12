@@ -6,17 +6,11 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/homepage_style.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
-    <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/map-imports/mapdata.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/map-imports/worldmap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/homepage.js' %}"></script>
     <title>Homepage - Water Conservation</title>
 </head>
-
-<script>
-    const homepage_database_caller = new homepage_database_scripts();
-    const homepage_other_caller = new homepage_other_scripts();
-</script>
 
 <body>
 
@@ -46,7 +40,7 @@
                 <span id="popup-content">
                     <!-- <script>homepage_database_caller.get_country_data();</script> -->
                 </span>
-                <span class="close" onclick="homepage_other_caller.closePopup()">X</span>
+                <span class="close" onclick="closePopup()">X</span>
             </span>
         </div>
     </div>
@@ -74,13 +68,12 @@
         <p>© 2025 Water Conservation Project</p>
     </footer>
 
-    <!-- JavaScript Calls -->
-    <script>
-        homepage_other_caller.map_click_behaviour();
-        homepage_other_caller.closePopupOnOutsideClick();
-        homepage_other_caller.handleScrollBehavior();
-    </script>
-
 </body>
+
+<script>
+    map_click_behaviour();
+    closePopupOnOutsideClick();
+    handleScrollBehavior();
+</script>
 
 </html>

@@ -62,12 +62,14 @@
     <div id="bottom-container">
             <div class="border-container">
                 <p>Conserve water with these simple and effective tips that can help make a positive impact on the environment.</p>
-                <p>Got any water saving tips? Consider sharing them with us!</p>
-                <form action="/watertips/" method="post">
-                    {% csrf_token %}
-                    <input type="text" placeholder="Enter your water saving tip" id="tip" name="tip" required>
-                    <button type="submit">Submit</button>
-                </form>
+                {% if user.is_authenticated %}
+                    <p>Got any water saving tips? Consider sharing them with us!</p>
+                    <form action="/watertips/" method="post">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Enter your water saving tip" id="tip" name="tip" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                {% endif %}
             </div>
 
     <!-- Call to Action -->
