@@ -204,3 +204,18 @@ form button {
 form button:hover {
   background-color: #004d40;
 }
+
+.category-description {
+  height: fit-content;
+  overflow: hidden;
+}
+
+.description {
+  align-items:normal;
+}
+
+.description li {
+  text-align: left;
+  float: left;
+  padding: 5px;
+}

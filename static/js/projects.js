@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Funcția care afișează slide-ul curent
   function showStep(stepIndex) {
     formSteps.forEach((step, index) => {
+      if(stepIndex == formSteps.length - 1) {
+        console.log('reached');
+        showCustomizationForm();
+      }
       step.classList.toggle("active", index === stepIndex);
     });
   }
@@ -49,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Gather form data
     const form = event.target;
     const formData = new FormData(form);
+    console.log(formData);
 
     // Send POST request using Fetch API
     fetch('/submit_project/', {
@@ -73,8 +78,57 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
       });
+      this.reset();
+      showDescription();
       currentStep = 0;
-      showStep(currentStep)
+      showStep(currentStep);
+      currentStep = -1;
+      updateProgressBar();
+      currentStep = 0;
   });
 
 });
+
+function showDescription() {
+  const category = document.getElementById('category').value;
+  const descriptionDiv = document.querySelector('.category-description');
+
+  if (category) {
+    fetch(`/get_category_description/?category=${encodeURIComponent(category)}`)
+      .then(response => response.json())
+      .then(data => {
+        descriptionDiv.innerHTML = '<p>Basic description:<ul class=description>' + data.description + '</ul>';
+        descriptionDiv.classList.remove('hidden'); // Show the description div
+      })
+      .catch(error => {
+        console.error('Error fetching category description:', error);
+        descriptionDiv.textContent = 'Unable to fetch description.';
+        descriptionDiv.classList.remove('hidden');
+      });
+  } else {
+    descriptionDiv.textContent = ''; // Clear description if no category selected
+    descriptionDiv.classList.add('hidden'); // Hide the description div
+  }
+}
+
+function showCustomizationForm() {
+  const category = document.getElementById('category').value;
+  const customizationDiv = document.getElementById('guidanceSection');
+
+  if (category) {
+    fetch(`/get_category_customization/?category=${encodeURIComponent(category)}`)
+      .then(response => response.json())
+      .then(data => {
+        customizationDiv.innerHTML = '<h2> Personalize Your ' + category + ' </h2>' + data.form;
+        customizationDiv.classList.remove('hidden'); // Show the description div
+      })
+      .catch(error => {
+        console.error('Error fetching category description:', error);
+        customizationDiv.textContent = 'Unable to fetch description.';
+        customizationDiv.classList.remove('hidden');
+      });
+  } else {
+    customizationDiv.textContent = 'Please select a category.'; // Clear description if no category selected
+    customizationDiv.classList.add('hidden'); // Hide the description div
+  }
+}

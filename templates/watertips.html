@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/watertip_style.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
-    <title>Water Conservation Tips</title>
+    <script type="text/javascript" src="{% static 'js/watertips.js' %}"></script>
+    <title>Water Tips - Water Conservation</title>
 
 </head>
 
@@ -45,12 +46,16 @@
             <div class="central-point">
                 {% for tip in watertips %}
                     <div class="orbit">
-                        <div class="water-glass">
-                            <p>{{ tip.tip }}</p>
+                        <div class="water-glass" onclick="showInfo('{{ tip.user }}', '{{ tip.tip }}')">
+                            <p onclick="showInfo('{{ tip.user }}')">{{ tip.tip }}</p>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+        </div>
+        <div class="tip-info hidden">
+            <p id="tipMessage"></p>
+            <p id="userMessage"></p>
         </div>
     </div>
 

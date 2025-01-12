@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>About - Water Conservation</title>
+  <title>Projects - Water Conservation</title>
 
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -27,10 +27,10 @@
       <li><a href="/watertips/">Water Tips</a></li>
       <li><a href="/projects/">Projects</a></li>
       {% if user.is_authenticated %}
-      <li class="login"><a href="/logout/">Log out</a></li>
-      <li class="login"><a href="/profile/">{{ user.username }}</a></li>
+        <li class="login"><a href="/logout/">Log out</a></li>
+        <li class="login"><a href="/profile/">{{ user.username }}</a></li>
       {% else %}
-      <li class="login"><a href="/login/">Log in</a></li>
+        <li class="login"><a href="/login/">Log in</a></li>
       {% endif %}
     </ul>
   </nav>
@@ -46,18 +46,19 @@
     </div>
 
     <!-- Quiz Form -->
-    <form id="projectForm" action="/projects/" method="POST">
+    <form id="projectForm">
       <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
       <!-- Question 1 -->
       <div class="form-step active">
         <h2>Choose a project category:</h2>
         <!-- Dropdown-ul cu categoriile proiectelor -->
-        <select id="category" name="category" onchange="" required>
+        <select id="category" name="category" onchange="showDescription()" required>
           <option value="">Select a category</option>
           {% for category in categories %}
-            <option value="{{ category }}">{{ category }}</option>
+          <option value="{{ category }}">{{ category }}</option>
           {% endfor %}
         </select>
+        <div class="category-description" class="hidden"></div>
         <button type="button" class="next-btn">Next</button>
       </div>
       <div class="form-step">
@@ -98,13 +99,15 @@
         <input type="number" id="waterSavings" name="waterSavings" placeholder="Enter water savings" required>
         <!-- Butonul Next care face redirecționarea -->
         <button type="button" class="prev-btn">Back</button>
-        <button type="submit" id="nextBtn">Submit</button>
+        <button type="button" class="next-btn">Customize</button>
       </div>
 
+      <div class="form-step">
+        <div id="guidanceSection" class="hidden"></div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="submit" id="nextBtn">Submit</button>
+      </div>
     </form>
-
-    <!-- Dynamic Guidance Section -->
-    <div id="guidanceSection" class="hidden"></div>
 
   </div>
 

@@ -9,13 +9,17 @@ from django.http import JsonResponse
 #PAGES VIEWS
 
 def homepage_view(request):
+    admin_user = User.objects.get(username="puleaspataru")
+    print(admin_user.id)
     return render(request, 'homepage.html')
 
 def profile_view(request):
+    # print(request.user)
     is_logged_in = User.is_authenticated
-    # print("user logged in")
     if is_logged_in:
-        return render(request, 'profile.html')
+        watertips = WaterTip.objects.filter(user=request.user)
+        projects = Project.objects.filter(user=request.user)
+        return render(request, 'profile.html', {'watertips': watertips, 'projects': projects})
     else:
         return redirect('/')
     
@@ -35,21 +39,6 @@ def watertips_view(request):
     return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
 def projects_view(request):
-    if request.method == 'POST':
-        # Preluăm datele din formular
-        category = request.POST['category']
-        project_name = request.POST['projectName']
-        company_name = request.POST['companyName']
-        description = request.POST['description']
-        goals = request.POST['goals']
-        water_savings = request.POST['waterSavings']
-        # Creăm un obiect nou
-        category_obj = Category.objects.get(category_name=category)
-        project = Project.objects.create(category=category_obj, prsoject_name=project_name, company_name = company_name, description=description, goals = goals, water_savings = water_savings)
-        project.save()
-        # Mesaj de succes și redirecționare către pagina de projects
-        messages.success(request, 'Project added successfully!')
-        return redirect('projects')
     return render(request, 'projects.html', {'categories': Category.objects.all()})
 
 #AUTHENTICATION VIEWS
@@ -129,7 +118,25 @@ def get_country_data(request):
     except Country.DoesNotExist:
         return JsonResponse({'error': 'Country not found'}, status=404)
 
+def get_category_description(request):
+    category_name = request.GET.get('category', None)
+    if category_name:
+        # Fetch the category object (adjust based on your model structure)
+        category = Category.objects.get(category_name=category_name)
+        return JsonResponse({"description": category.description, "name":category.category_name})  # Assuming `description` is a field in your model
+    return JsonResponse({"description": "Category not found."})
+
+def get_category_customization(request):
+    category_name = request.GET.get('category', None)
+    if category_name:
+        # Fetch the category object (adjust based on your model structure)
+        category = Category.objects.get(category_name=category_name)
+        return JsonResponse({"form": category.customization_form})  # Assuming `description` is a field in your model
+    return JsonResponse({"description": "Category not found."})
+
 def submit_project(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'User must be logged in'}, status=403)
     category = request.POST.get('category')
     project_name = request.POST.get('projectName')
     company_name = request.POST.get('companyName')
@@ -137,12 +144,28 @@ def submit_project(request):
     goals = request.POST.get('goals')
     water_savings = request.POST.get('waterSavings')
 
-    if not category or not project_name or not company_name or not description or not goals or not water_savings:
+    additional_data= request.POST.dict()
+    keys = list(additional_data.keys())
+
+    additional_data = {key: additional_data[key] for key in keys[7:]}
+
+    print(additional_data)
+
+    if not category or not project_name or not company_name or not description or not goals or not water_savings or not additional_data:
         return JsonResponse({'error': 'Missing required fields'}, status=400)
     
     try:
         category_obj = Category.objects.get(category_name=category)
-        project = Project.objects.create(category=category_obj, project_name=project_name, company_name=company_name, description=description, goals=goals, water_savings=water_savings)
+        project = Project.objects.create(
+            user=request.user,
+            category=category_obj,
+            project_name=project_name,
+            company_name=company_name,
+            description=description,
+            goals=goals,
+            water_savings=water_savings,
+            additional_customization=additional_data,
+        )
         project.save()
         return JsonResponse({'success': True, 'message': 'Project added successfully!'})  # Return a success message
     except Category.DoesNotExist:

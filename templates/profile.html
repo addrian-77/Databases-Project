@@ -7,7 +7,7 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
     <script type="text/javascript" src="{% static 'js/mapdata.js' %}"></script>		
     <script  type="text/javascript" src="{% static 'js/worldmap.js' %}"></script>
-    <title>Water Conservation</title>
+    <title>{{ user.username }}'s profile</title>
     
 </head>
 <body>
@@ -36,7 +36,30 @@
     <div class="container">
         <div class="content">
             <div class="row">
-                <p>{{ user.username }}</p>
+                <h3>Hello, {{ user.username }}!</h3>
+                <h3>This is an overview of your profile</h3>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% if watertips %}
+                        <p>Your submitted tips:</p>
+                        {% for tip in watertips %}
+                            <p>{{ tip.tip }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>You have not submitted any tips!</p>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {% if projects %}
+                        <p>Your submitted projects:</p>
+                        {% for project in projects %}
+                            <p>{{ project.project_name }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>You have not submitted any projects!</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

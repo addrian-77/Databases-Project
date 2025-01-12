@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,17 +20,20 @@ class Location(models.Model):
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
     description = models.TextField()
+    customization_form = models.TextField()
 
     def __str__(self):
         return self.category_name
     
 class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100)
     description = models.TextField()
     goals = models.TextField()
     water_savings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    additional_customization = models.TextField()
 
     def __str__(self):
         return self.project_name
@@ -73,6 +77,7 @@ class ConservationTechnique(models.Model):
 
 
 class WaterTip(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     tip = models.CharField(max_length=200)
 
     def __str__(self):
