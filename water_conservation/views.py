@@ -13,6 +13,9 @@ def homepage_view(request):
     print(admin_user.id)
     return render(request, 'homepage.html')
 
+def technologies_view(request):
+    return render(request, 'technologies.html')
+
 def profile_view(request):
     # print(request.user)
     is_logged_in = User.is_authenticated

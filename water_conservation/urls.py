@@ -31,5 +31,6 @@ urlpatterns = [
     path('submit_project/', views.submit_project, name='submit_project'),
     path('watertips/', views.watertips_view, name='watertips'),
     path('projects/', views.projects_view, name='projects'),
+    path('technologies/', views.technologies_view, name='technologies'),
     path('admin/', admin.site.urls),
 ]
