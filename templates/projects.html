@@ -9,8 +9,6 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
   <link rel="stylesheet" href="{% static 'css/projects_style.css' %}">
   <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
-  <script type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/other_operations.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/projects.js' %}"></script>
 </head>
 
@@ -50,6 +48,19 @@
       <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
       <!-- Question 1 -->
       <div class="form-step active">
+        <h2>Choose your company</h2>
+        <select id="companyName" name="companyName" required>
+          {% if companies %}
+            {% for company in companies %}
+              <option value="{{ company.name }}">{{ company.name }}</option>
+            {% endfor %}
+          {% endif %}
+        </select>
+        <p>Don't see your company?</p>
+        <p>Register it <a href="/company/">here</a>.</p>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+      <div class="form-step">
         <h2>Choose a project category:</h2>
         <!-- Dropdown-ul cu categoriile proiectelor -->
         <select id="category" name="category" onchange="showDescription()" required>
@@ -59,8 +70,10 @@
           {% endfor %}
         </select>
         <div class="category-description" class="hidden"></div>
+        <button type="button" class="prev-btn">Back</button>
         <button type="button" class="next-btn">Next</button>
       </div>
+
       <div class="form-step">
         <h2>What is your project's name?</h2>
         <input type="text" id="projectName" name="projectName" placeholder="Enter project name" required>
@@ -70,8 +83,16 @@
 
       <!-- Question 2 -->
       <div class="form-step">
-        <h2>What is your company or organization?</h2>
-        <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
+        <h2>What technology do you want to use?</h2>
+        <select id="technologyName" name="technologyName" required>
+          {% if technologies %}
+            {% for technology in technologies %}
+              <option value="{{ technology.name }}">{{ technology.name }}</option>
+            {% endfor %}
+          {% endif %}
+        </select>
+        <p>Don't see your technology?</p>
+        <p>Register it <a href="/technologies/">here</a>.</p>
         <button type="button" class="prev-btn">Back</button>
         <button type="button" class="next-btn">Next</button>
       </div>

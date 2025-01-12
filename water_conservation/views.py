@@ -9,8 +9,6 @@ from django.http import JsonResponse
 #PAGES VIEWS
 
 def homepage_view(request):
-    admin_user = User.objects.get(username="puleaspataru")
-    print(admin_user.id)
     return render(request, 'homepage.html')
 
 def technologies_view(request):
@@ -42,7 +40,7 @@ def watertips_view(request):
     return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
 def projects_view(request):
-    return render(request, 'projects.html', {'categories': Category.objects.all()})
+    return render(request, 'projects.html', {'categories': Category.objects.all(), 'companies': Company.objects.all(), 'technologies': Technology.objects.all()})
 
 #AUTHENTICATION VIEWS
 
@@ -143,6 +141,7 @@ def submit_project(request):
     category = request.POST.get('category')
     project_name = request.POST.get('projectName')
     company_name = request.POST.get('companyName')
+    technology_name = request.POST.get('technologyName')
     description = request.POST.get('description')
     goals = request.POST.get('goals')
     water_savings = request.POST.get('waterSavings')
@@ -150,20 +149,24 @@ def submit_project(request):
     additional_data= request.POST.dict()
     keys = list(additional_data.keys())
 
-    additional_data = {key: additional_data[key] for key in keys[7:]}
+    additional_data = {key: additional_data[key] for key in keys[8:]}
 
+    print(technology_name)
     print(additional_data)
 
     if not category or not project_name or not company_name or not description or not goals or not water_savings or not additional_data:
         return JsonResponse({'error': 'Missing required fields'}, status=400)
     
     try:
+        company_obj = Company.objects.get(name=company_name)
         category_obj = Category.objects.get(category_name=category)
+        technology_obj = Technology.objects.get(name=technology_name)
         project = Project.objects.create(
             user=request.user,
             category=category_obj,
             project_name=project_name,
-            company_name=company_name,
+            company_name=company_obj,
+            technology=technology_obj,
             description=description,
             goals=goals,
             water_savings=water_savings,

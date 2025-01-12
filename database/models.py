@@ -17,35 +17,6 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-class Category(models.Model):
-    category_name = models.CharField(max_length=100)
-    description = models.TextField()
-    customization_form = models.TextField()
-
-    def __str__(self):
-        return self.category_name
-    
-class Project(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    project_name = models.CharField(max_length=100)
-    company_name = models.CharField(max_length=100)
-    description = models.TextField()
-    goals = models.TextField()
-    water_savings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    additional_customization = models.TextField()
-
-    def __str__(self):
-        return self.project_name
-
-
-class Feedback(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    comments = models.TextField()
-
-    def __str__(self):
-        return f"Feedback for {self.project.project_name}"
-
 
 class Stakeholder(models.Model):
     name = models.CharField(max_length=100)
@@ -99,6 +70,24 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.name
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=100)
+    description = models.TextField()
+    customization_form = models.TextField()
+
+    def __str__(self):
+        return self.category_name
+    
+
+class Company(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 
 class Technology(models.Model):
     name = models.CharField(max_length=100)
@@ -109,6 +98,29 @@ class Technology(models.Model):
     def __str__(self):
         return self.name
     
+
+class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    project_name = models.CharField(max_length=100)
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE)
+    technology = models.ForeignKey(Technology, on_delete=models.CASCADE)
+    description = models.TextField()
+    goals = models.TextField()
+    water_savings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    additional_customization = models.TextField()
+
+    def __str__(self):
+        return self.project_name
+
+
+class Feedback(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    comments = models.TextField()
+    def __str__(self):
+        return f"Feedback for {self.project.project_name}"
+
+
 class TechnologyImplemented(models.Model):
     technology = models.ForeignKey(Technology, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -177,6 +189,7 @@ class SoilData(models.Model):
 
 class EnergyConsumption(models.Model):
     technology = models.ForeignKey(Technology, on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):
-        return f"Energy Consumption for {self.technology.name}"
+        return f"Energy Consumption for {self.technology.name}: {self.value}"
