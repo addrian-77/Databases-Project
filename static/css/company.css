@@ -1,0 +1,156 @@
+/* Resetare stiluri de bază */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+/*    background: linear-gradient(to bottom, #d8f3dc, #52b788);*/
+    background-image: url('https://cdn.pixabay.com/photo/2020/01/24/12/29/konigssee-4790116_640.jpg');
+    background-size: cover;
+    background-position: center;display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Titlu */
+h1 {
+    color: #081c15;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Cardul formularului */
+.form-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Grupurile de câmpuri */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 18px;
+    color: #081c15;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border: 2px solid #40916c;
+}
+
+/* Buton Register */
+#registerButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #1b4332;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#registerButton:hover {
+    background-color: #081c15;
+    transform: scale(1.05);
+}
+/* Mesaj de succes */
+.success-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #40916c;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+/* Mesaj de eroare */
+.error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d00000;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.navbar {
+    background-color: #00796b; /* Albastru închis */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.navbar li {
+    margin-right: 20px;
+    float: left;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.navbar a:hover {
+    background-color: #002244; /* Un albastru și mai închis pentru hover */
+}
+
+/* Stilizarea pentru elementele din dreapta */
+.navbar li.login {
+        
+    float: right;
+}
+

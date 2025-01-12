@@ -14,6 +14,10 @@ def homepage_view(request):
 def technologies_view(request):
     return render(request, 'technologies.html')
 
+def company_view(request):
+    return render(request, 'company.html')
+
+
 def profile_view(request):
     # print(request.user)
     is_logged_in = User.is_authenticated
