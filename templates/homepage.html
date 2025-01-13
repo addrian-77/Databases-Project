@@ -59,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for country in countries_with_projects %}
+                        {% for country in countries_with_projects|slice:":5" %}
                         <tr>
                             <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
                             <td>{{ country.company_name__country__name }}</td>
@@ -82,12 +82,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for country in countries_with_most_water_saving %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
-                            <td>{{ country.company_name__country__name }}</td>
-                            <td>{{ country.total_savings }}</td>
-                        </tr>
+                        {% for country in countries_with_most_water_saving|slice:":5"%}
+                            <tr>
+                                <script>
+                                    highlightCountry('{{ country.company_name__country__name }}');
+                                </script>
+                                <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
+                                <td>{{ country.company_name__country__name }}</td>
+                                <td>{{ country.total_savings }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>                    
                 </table>
@@ -106,7 +109,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for technology in most_popular_technologies %}
+                    {% for technology in most_popular_technologies|slice:":5" %}
                     <tr>
                         <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
                         <td>{{ technology.technology__name }}</td>

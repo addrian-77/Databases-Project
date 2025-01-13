@@ -176,7 +176,7 @@ class UsageData(models.Model):
 
 class ClimateData(models.Model):
     temperature = models.DecimalField(max_digits=5, decimal_places=2)
-
+    
     def __str__(self):
         return f"Temperature: {self.temperature}"
 

@@ -12,7 +12,6 @@ import json
 #PAGES VIEWS
 
 def homepage_view(request):
-    # Countries with the Most Water Saving Projects
     countries_with_projects = (
         Project.objects.values("company_name__country__name")
         .annotate(project_count=Count("id"))
@@ -21,7 +20,6 @@ def homepage_view(request):
     for rank, country in enumerate(countries_with_projects, start=1):
         country["rank"] = rank
 
-    # Countries Whose Projects Saved the Most Water
     countries_with_most_water_saving = (
         Project.objects.values("company_name__country__name")
         .annotate(total_savings=Sum("water_savings"))
@@ -30,7 +28,6 @@ def homepage_view(request):
     for rank, country in enumerate(countries_with_most_water_saving, start=1):
         country["rank"] = rank
 
-    # Most Popular Water Technologies
     most_popular_technologies = (
         TechnologyImplemented.objects.values("technology__name")
         .annotate(implementation_count=Count("id"))
@@ -56,12 +53,12 @@ def technologies_view(request):
             "description": tech.description,
             "category": {
                 "id": tech.category.id,
-                "name": tech.category.category_name,  # Assuming Category has a `category_name` field
+                "name": tech.category.category_name,
             },
             "manufacturer": {
                 "id": tech.manufacturer.id,
-                "name": tech.manufacturer.name,  # Assuming Manufacturer has a `name` field
-                "address": tech.manufacturer.address,  # Assuming Manufacturer has an `address` field
+                "name": tech.manufacturer.name,  
+                "address": tech.manufacturer.address,  
             },
         }
         for tech in technologies

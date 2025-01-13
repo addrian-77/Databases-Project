@@ -47,6 +47,28 @@ function map_click_behaviour() {
     
 }
 
+function highlightCountry(name) {
+    // Loop through the state_specific object to find the country by name
+    for (const countryCode in simplemaps_worldmap_mapdata.state_specific) {
+      const country = simplemaps_worldmap_mapdata.state_specific[countryCode];
+  
+      // Check if the country's name matches the given name
+      if (country.name === name) {
+        // Highlight the country
+        simplemaps_worldmap_mapdata.state_specific[countryCode].color = '#53c920'; // Highlight color (red)
+        simplemaps_worldmap_mapdata.state_specific[countryCode].hover_color = '#6be835'; // Hover color (light red)
+        simplemaps_worldmap_mapdata.state_specific[countryCode].description = `${name} is highlighted`; // Tooltip text
+  
+        // Refresh the map to apply the changes
+        return; // Exit the function once the country is found and updated
+      }
+    }
+  
+    // If country not found
+    console.error(`Country with name '${name}' not found in the map data.`);
+  }
+  
+
 // Helper method to close the popup
 function closePopup() {
     const popup = document.getElementById('popup');
