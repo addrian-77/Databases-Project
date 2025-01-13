@@ -88,6 +88,10 @@ h1 {
     color: #f59127;
 }
 
+.add-your-own {
+    color: red;
+}
+
 /* Container pentru slide-uri */
 .slide-container {
     width: 100%;

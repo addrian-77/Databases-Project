@@ -38,7 +38,6 @@
             <!-- Popup -->
             <span id="popup" class="popup" style="display: none;">
                 <span id="popup-content">
-                    <!-- <script>homepage_database_caller.get_country_data();</script> -->
                 </span>
                 <span class="close" onclick="closePopup()">X</span>
             </span>
@@ -48,18 +47,74 @@
     <!-- Information Cards -->
     <div class="info-section">
         <div class="row">
-            <div class="col">
-                <h3>Countries with the Most Technologies</h3>
-                <p>Here will be a dynamically generated leaderboard table.</p>
+            <!-- Leaderboard 1: Countries with the Most Water Saving Projects -->
+            <div class="col" id="col1">
+                <h3>Countries with the Most Water Saving Projects</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Country</th>
+                            <th>Projects</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for country in countries_with_projects %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
+                            <td>{{ country.company_name__country__name }}</td>
+                            <td>{{ country.project_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>                    
+                </table>
             </div>
-            <div class="col">
-                <h3>Most Water Saved</h3>
-                <p>Another leaderboard table here.</p>
+    
+            <!-- Leaderboard 2: Countries Whose Projects Saved the Most Water -->
+            <div class="col" id="col2">
+                <h3>Countries whose Projects Saved the Most Water</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Country</th>
+                            <th>Total Water Savings (in liters)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for country in countries_with_most_water_saving %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
+                            <td>{{ country.company_name__country__name }}</td>
+                            <td>{{ country.total_savings }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>                    
+                </table>
             </div>
         </div>
-
+    
+        <!-- Leaderboard 3: Most Popular Water Technologies -->
         <div class="row">
             <h3>Most Popular Water Technologies</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Technology</th>
+                        <th>Implementations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for technology in most_popular_technologies %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td> <!-- Use forloop.counter for ranking -->
+                        <td>{{ technology.technology__name }}</td>
+                        <td>{{ technology.implementation_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>   
+            </table>
         </div>
     </div>
 

@@ -13,6 +13,7 @@ html, body {
 
 body {
     font-family: 'Arial', sans-serif;
+
 }
 
 .navbar {
@@ -117,4 +118,47 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+.info-section {
+    position: relative;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+.col {
+    padding: 0px;
+}
+#col1 {
+    padding: 0px;
+    margin-right: 50px;
+}
+
+#col2 {
+    margin-left: 50px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
 }

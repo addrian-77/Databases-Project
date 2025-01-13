@@ -56,7 +56,7 @@
     
       <label for="category">Category:</label>
       <select id="category" name="category" required>
-        <option value="">Select your category</option>
+        <option value="" selected="true" disabled="disabled">Select your category</option>
         {% if categories %}
           {% for category in categories %}
             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
@@ -64,15 +64,33 @@
         {% endif %}
       </select>
     
+      <label for="technique">Conservation Technique:</label>
+      <select id="techniqueSelect" name="technique" required>
+        <option value="" selected="true" disabled="disabled">Select your technique</option>
+        {% if techniques %}
+          {% for technique in techniques %}
+            <option value="{{ technique.name }}">{{ technique.name }}</option>
+          {% endfor %}
+        {% endif %}
+        <option class="add-your-own" value="add-your-own">--Add your own--</option>
+      </select>
+
+      <input type="text" id="customTechnique" name="custom_technique" placeholder="Enter your own technique" style="display: none;">
+
+
       <label for="manufacturer">Manufacturer:</label>
-      <select id="manufacturer" name="manufacturer" required>
-        <option value="">Select your manufacturer</option>
+      <select id="manufacturerSelect" name="manufacturer" required>
+        <option value="" selected="true" disabled="disabled">Select your manufacturer</option>
         {% if manufacturers %}
           {% for manufacturer in manufacturers %}
             <option value="{{ manufacturer.name }}">{{ manufacturer.name }}</option>
           {% endfor %}
         {% endif %}
+        <option class="add-your-own" value="add-your-own">--Add your own--</option>
       </select>
+
+      <input type="text" id="customManufacturerName" name="custom_manufacturer_name" placeholder="Enter your manufacturer's name" style="display: none;">
+      <input type="text" id="customManufacturerAddress" name="custom_manufacturer_address" placeholder="Enter your manufacturer's address" style="display: none;">
     
       <button type="submit">Add Technology</button>
       <div class="go-back-projects">

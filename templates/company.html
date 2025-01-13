@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label for="country"><i class="fas fa-globe"></i> Country</label>
                 <select id="country" name="country" required>
-                  <option value="">Select your country</option>
+                  <option value="" selected="true" disabled="disabled">Select your country</option>
                   {% if countries %}
                     {% for country in countries %}
                       <option value="{{ country.name }}">{{ country.name }}</option>

@@ -54,4 +54,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inițializare
     showTechnology(currentSlide);
+
+    const techniqueSelect = document.getElementById('techniqueSelect');
+    const customTechniqueInput = document.getElementById('customTechnique');
+
+    // Event listener for dropdown selection change
+    techniqueSelect.addEventListener('change', function() {
+    if (this.value === 'add-your-own') {
+        // Show the custom text input
+        customTechniqueInput.style.display = 'block';
+        // Set the required attribute for the custom input
+        customTechniqueInput.required = true;
+    } else {
+        // Hide the custom text input
+        customTechniqueInput.style.display = 'none';
+        // Remove the required attribute
+        customTechniqueInput.required = false;
+    }
+    });
+
+    const manufacturerSelect = document.getElementById('manufacturerSelect');
+    const customManufacturerNameInput = document.getElementById('customManufacturerName');
+    const customManufacturerAddressInput = document.getElementById('customManufacturerAddress');
+
+    // Event listener for dropdown selection change
+    manufacturerSelect.addEventListener('change', function() {
+    if (this.value === 'add-your-own') {
+        // Show the custom text input
+        customManufacturerNameInput.style.display = 'block';
+        // Set the required attribute for the custom input
+        customManufacturerNameInput.required = true;
+        customManufacturerAddressInput.style.display = 'block';
+        // Set the required attribute for the custom input
+        customManufacturerAddressInput.required = true;
+    } else {
+        // Hide the custom text input
+        customManufacturerNameInput.style.display = 'none';
+        // Remove the required attribute
+        customManufacturerNameInput.required = false;
+        customManufacturerAddressInput.style.display = 'none';
+        // Remove the required attribute
+        customManufacturerAddressInput.required = false;
+    }
+    });
 });

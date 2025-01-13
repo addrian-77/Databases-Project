@@ -184,7 +184,9 @@ rotate: 1 0 0 90deg;
 }
 
 .water-glass p {
-    padding: 0px;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow:clip;
 }
 
 .orbit:nth-child(1) {

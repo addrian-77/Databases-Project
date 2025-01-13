@@ -50,6 +50,7 @@
       <div class="form-step active">
         <h2>Choose your company</h2>
         <select id="companyName" name="companyName" required>
+          <option value="" selected="true" disabled="disabled">Select a company</option>
           {% if companies %}
             {% for company in companies %}
               <option value="{{ company.name }}">{{ company.name }}</option>
@@ -64,7 +65,7 @@
         <h2>Choose a project category:</h2>
         <!-- Dropdown-ul cu categoriile proiectelor -->
         <select id="category" name="category" onchange="showDescription()" required>
-          <option value="">Select a category</option>
+          <option value="" selected="true" disabled="disabled">Select a category</option>
           {% for category in categories %}
           <option value="{{ category }}">{{ category }}</option>
           {% endfor %}
@@ -85,6 +86,7 @@
       <div class="form-step">
         <h2>What technology do you want to use?</h2>
         <select id="technologyName" name="technologyName" required>
+          <option value="" selected="true" disabled="disabled">Select a technology</option>
           {% if technologies %}
             {% for technology in technologies %}
               <option value="{{ technology.name }}">{{ technology.name }}</option>

@@ -90,6 +90,7 @@ class Company(models.Model):
 
 
 class Technology(models.Model):
+    user = user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

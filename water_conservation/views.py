@@ -5,12 +5,47 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from database.models import *
 from django.http import JsonResponse
+from datetime import date
+from django.db.models import Sum, Count
 import json
 
 #PAGES VIEWS
 
 def homepage_view(request):
-    return render(request, 'homepage.html')
+    # Countries with the Most Water Saving Projects
+    countries_with_projects = (
+        Project.objects.values("company_name__country__name")
+        .annotate(project_count=Count("id"))
+        .order_by("-project_count")
+    )
+    for rank, country in enumerate(countries_with_projects, start=1):
+        country["rank"] = rank
+
+    # Countries Whose Projects Saved the Most Water
+    countries_with_most_water_saving = (
+        Project.objects.values("company_name__country__name")
+        .annotate(total_savings=Sum("water_savings"))
+        .order_by("-total_savings")
+    )
+    for rank, country in enumerate(countries_with_most_water_saving, start=1):
+        country["rank"] = rank
+
+    # Most Popular Water Technologies
+    most_popular_technologies = (
+        TechnologyImplemented.objects.values("technology__name")
+        .annotate(implementation_count=Count("id"))
+        .order_by("-implementation_count")
+    )
+    for rank, tech in enumerate(most_popular_technologies, start=1):
+        tech["rank"] = rank
+
+    context = {
+        "countries_with_projects": countries_with_projects,
+        "countries_with_most_water_saving": countries_with_most_water_saving,
+        "most_popular_technologies": most_popular_technologies,
+    }
+    print(context)
+    return render(request, 'homepage.html', context)
 
 def technologies_view(request):
     technologies = Technology.objects.all()
@@ -31,8 +66,7 @@ def technologies_view(request):
         }
         for tech in technologies
     ]
-    print(technologies_json)
-    return render(request, 'technologies.html', {'technologies': json.dumps(technologies_json), 'categories': Category.objects.all(), 'manufacturers': Manufacturer.objects.all()})
+    return render(request, 'technologies.html', {'technologies': json.dumps(technologies_json), 'categories': Category.objects.all(), 'manufacturers': Manufacturer.objects.all(), 'techniques': ConservationTechnique.objects.all()})
 
 def company_view(request):
     return render(request, 'company.html', {'countries': Country.objects.all()})
@@ -64,7 +98,7 @@ def watertips_view(request):
     return render(request, 'watertips.html', {'watertips': WaterTip.objects.order_by('?')[:6]})
 
 def projects_view(request):
-    return render(request, 'projects.html', {'categories': Category.objects.all(), 'companies': Company.objects.all(), 'technologies': Technology.objects.all()})
+    return render(request, 'projects.html', {'categories': Category.objects.all(), 'companies': Company.objects.filter(user=request.user), 'technologies': Technology.objects.filter(user=request.user)})
 
 #AUTHENTICATION VIEWS
 
@@ -197,6 +231,14 @@ def submit_project(request):
             additional_customization=additional_data,
         )
         project.save()
+        project_obj = Project.objects.get(project_name=project_name)
+        technology_implemented_obj = TechnologyImplemented.objects.create(
+            technology=technology_obj,
+            project=project_obj,
+            date=date.today(),
+            country=Company.objects.get(name=company_name).country,
+        )
+        technology_implemented_obj.save()
         return JsonResponse({'success': True, 'message': 'Project added successfully!'})  # Return a success message
     except Category.DoesNotExist:
         return JsonResponse({'error': 'Category not found'}, status=404)
@@ -206,13 +248,35 @@ def submit_technology(request):
     description = request.POST.get('description')
     category_name = request.POST.get('category')
     manufacturer_name = request.POST.get('manufacturer')
+    technique_name = request.POST.get('technique')
 
-    if not name or not description or not category_name or not manufacturer_name:
+    if not name or not description or not category_name or not manufacturer_name or not technique_name:
         return JsonResponse({'error': 'Missing required fields'}, status=400)
     
     try:
+        if technique_name == 'add-your-own':
+            technique_name = request.POST.get('custom_technique')
+        if ConservationTechnique.objects.filter(name=technique_name).exists():
+            technique_obj = ConservationTechnique.objects.get(name=technique_name)
+        else:
+            technique_obj = ConservationTechnique.objects.create(
+                name = technique_name,
+            )
+            technique_obj.save()
+            technique_obj = ConservationTechnique.objects.get(name=technique_name)
         category_obj = Category.objects.get(category_name=category_name)
-        manufacturer_obj = Manufacturer.objects.get(name=manufacturer_name)
+        if manufacturer_name == 'add-your-own':
+            manufacturer_name = request.POST.get('custom_manufacturer_name')
+            manufacturer_address = request.POST.get('custom_manufacturer_address')
+        if Manufacturer.objects.filter(name=manufacturer_name).exists():
+            manufacturer_obj = Manufacturer.objects.get(name=manufacturer_name)
+        else:
+            manufacturer_obj = Manufacturer.objects.create(
+                name = manufacturer_name,
+                address = manufacturer_address,
+            )
+            manufacturer_obj.save()
+            manufacturer_obj = Manufacturer.objects.get(name=manufacturer_name)
         technology = Technology.objects.create(
             name=name,
             description=description,
@@ -220,6 +284,12 @@ def submit_technology(request):
             manufacturer=manufacturer_obj,
         )
         technology.save()
+        technology = Technology.objects.get(name=name)
+        technology_technique_obj = TechnologyTechnique.objects.create(
+            technology=technology,
+            technique=technique_obj,
+        )
+        technology_technique_obj.save()
         return redirect('technologies')
     except Category.DoesNotExist:
         return JsonResponse({'error': 'Category not found'}, status=404)
