@@ -183,6 +183,7 @@ class ClimateData(models.Model):
 
 class SoilData(models.Model):
     ph_level = models.DecimalField(max_digits=4, decimal_places=2)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Soil pH: {self.ph_level}"

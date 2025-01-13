@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from datetime import date
 from django.db.models import Sum, Count
 import json
+import random
 
 #PAGES VIEWS
 
@@ -164,10 +165,28 @@ def get_country_data(request):
     try:
         # Fetch the country object based on the name
         country = Country.objects.get(name=country_name)
+        country_projects = list(
+            Project.objects.filter(company_name__country__name=country)
+            .values_list("project_name", "water_savings")
+            .order_by("-water_savings")
+        )
         
+        country_companies = list(
+            Company.objects.filter(country__name=country)
+            .values_list("name", "user__username")
+        )
+
+        country_soil_data = list(
+            SoilData.objects.filter(country__name=country)
+            .values_list("ph_level")
+        )
+        print(country_projects)
         # Prepare the data to send back
         data = {
             'name': country.name,
+            'projects': country_projects,
+            'companies': country_companies,
+            'soil_data': country_soil_data,
         }
         return JsonResponse({'success': True, 'data': data})
 

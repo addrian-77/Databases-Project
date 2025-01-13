@@ -22,9 +22,77 @@ function map_click_behaviour() {
                     if (data.success) {
                         document.getElementById('popup-content').innerHTML = `
                             <strong>${data.data.name}</strong><br>
-                            Population: ${data.data.population || 'N/A'}<br>
-                            Capital: ${data.data.capital || 'N/A'}
-                        `;
+                            <div id="soil-data">
+                            The soil's pH is <strong>${data.data.soil_data[0]}</strong>
+                            </div>
+                            <br>
+                            <div id="projects-message">
+                            </div>
+                            <div id="projects-table" style="max-height: 150px; overflow:auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Project</th>
+                                        <th>Water Savings</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="projects-table-body">
+                                </tbody>
+                            </table>
+                            </div>
+                            <div id="companies-message">
+                            </div>
+                            <div id="companies-table" style="height: 200px; overflow:auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Owner</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="companies-table-body">
+                                </tbody>
+                            </table>
+                            </div>`;
+                        
+                        // Append rows to the table body
+                        data.data.projects.slice(0,5).forEach(createProjectsTable);
+                        console.log(data.data.projects);
+                        if (data.data.projects.length == 0) {
+                            document.getElementById('projects-message').innerHTML = "There are no registered projects.";
+                            document.getElementById('projects-table').style.display = "none";
+                        } else {
+                            document.getElementById('projects-message').innerHTML = "Projects with the most water saving:";
+                        }
+                        function createProjectsTable(item) {
+                            const tableBody = document.getElementById('projects-table-body');
+                            document.getElementById('projects-table').style.display = "block";
+                            tableBody.innerHTML += `
+                            <tr>
+                                <td>${item[0]}</td>
+                                <td>${item[1]}</td>
+                            </tr>`;
+                        }
+
+                        data.data.companies.forEach(createCompaniesTable);
+                        console.log(data.data.companies);
+                        if (data.data.companies.length == 0){
+                            document.getElementById('companies-message').innerHTML = "There are no registered companies.";
+                            document.getElementById('companies-table').style.display = "none";
+                        } else {
+                            document.getElementById('companies-message').innerHTML = `Registered companies from ${data.data.name}:`
+                        }
+
+                        function createCompaniesTable(item) {
+                            const tableBody = document.getElementById('companies-table-body');
+                            document.getElementById('companies-table').style.display = "block";
+                            tableBody.innerHTML += `
+                            <tr>
+                                <td>${item[0]}</td>
+                                <td>${item[1]}</td>
+                            </tr>`;
+                        }
+
                     } else {
                         document.getElementById('popup-content').innerHTML = 'Error fetching country data.';
                     }
@@ -131,13 +199,15 @@ function handleScrollBehavior() {
 
         // Disable map interaction on scrollwheel or scrolling
         window.addEventListener("wheel", (event) => {
-            // console.log(simplemaps_worldmap.clone.zooming_complete);
-            // console.log(simplemaps_worldmap.hooks.zooming_complete)
-            this.closePopup();
-            if (isInteractive == true && simplemaps_worldmap.zoom_level == 'out' && event.deltaY > 0) {
-                isInteractive = false;
-                mapDiv.style.pointerEvents = 'none'; // Disable interaction
-                console.log("Map interaction disabled due to scrolling");
+            if (!document.getElementById('popup').contains(event.target)) {
+                // console.log(simplemaps_worldmap.clone.zooming_complete);
+                // console.log(simplemaps_worldmap.hooks.zooming_complete)
+                this.closePopup();
+                if (isInteractive == true && simplemaps_worldmap.zoom_level == 'out' && event.deltaY > 0) {
+                    isInteractive = false;
+                    mapDiv.style.pointerEvents = 'none'; // Disable interaction
+                    console.log("Map interaction disabled due to scrolling");
+                }
             }
         });
 

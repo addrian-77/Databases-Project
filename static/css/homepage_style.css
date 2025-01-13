@@ -77,6 +77,7 @@ body {
     border: 1px solid #ccc;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     padding: 15px;
+    height: fit-content;
     max-width: 300px;
     border-radius: 8px;
     z-index: 1000;
