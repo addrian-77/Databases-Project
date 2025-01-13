@@ -35,5 +35,6 @@ urlpatterns = [
     path('projects/', views.projects_view, name='projects'),
     path('technologies/', views.technologies_view, name='technologies'),
     path('company/', views.company_view, name='company'),
+    path('feedback/', views.feedback_view, name='feedback'),
     path('admin/', admin.site.urls),
 ]

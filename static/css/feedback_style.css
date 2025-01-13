@@ -1,0 +1,109 @@
+/* Reset CSS */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  background-image: url('https://mediacdn.libertatea.ro/unsafe/1200x0/smart/filters:format(webp):contrast(8):quality(75)/https://static4.libertatea.ro/wp-content/uploads/2020/05/circuitul-apei-in-natura-curiozitati-despre-ciclul-apei.jpg');
+    background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #00796b; /* Albastru închis */
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    zoom: 95%;
+}
+
+.navbar ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.navbar li {
+    margin-right: 20px;
+    float: left;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.navbar a:hover {
+    background-color: #002244; /* Un albastru și mai închis pentru hover */
+}
+
+/* Stilizarea pentru elementele din dreapta */
+.navbar li.login {
+        
+    float: right;
+}
+
+
+/* Centrare formular feedback */
+.feedback-form-container {
+    position: absolute;
+    top: 20%;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.feedback-form h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.feedback-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+.feedback-form select, .feedback-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.feedback-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.feedback-form button:hover {
+  background-color: #2980b9;
+}

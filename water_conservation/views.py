@@ -69,6 +69,9 @@ def technologies_view(request):
 def company_view(request):
     return render(request, 'company.html', {'countries': Country.objects.all()})
 
+def feedback_view(request):
+    return render(request, 'feedback.html')
+
 
 def profile_view(request):
     # print(request.user)

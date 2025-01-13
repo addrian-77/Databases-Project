@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>About - Water Conservation</title>
+  
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/feedback_style.css' %}">
+  <script  type="text/javascript" src="{% static 'js/feedback.js' %}"></script>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
+</head>
+<script>
+  technologies = JSON.parse('{{ technologies|safe }}');
+</script>
+<body>
+  
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/watertips/">Water Tips</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      {% if user.is_authenticated %}
+        <li class="login"><a href="/logout/">Log out</a></li>
+        <li class="login"><a href="/profile/">{{ user.username }}</a></li>
+      {% else %}
+        <li class="login"><a href="/login/">Log in</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+     
+<div class="feedback-form-container">
+    <div class="feedback-form">
+      <h2>Lasă feedback</h2>
+      <form id="feedbackForm">
+        <label for="project">Selectează proiectul:</label>
+        <select id="project" name="project">
+          <option value="Proiect 1">Proiect 1</option>
+          <option value="Proiect 2">Proiect 2</option>
+          <option value="Proiect 3">Proiect 3</option>
+        </select>
+
+        <label for="feedback">Scrie feedback-ul tău:</label>
+        <textarea id="feedback" name="feedback" rows="5" placeholder="Scrie aici..."></textarea>
+
+        <button type="submit">Trimite feedback</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
