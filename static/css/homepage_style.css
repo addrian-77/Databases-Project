@@ -11,9 +11,13 @@ html, body {
     overflow-x: hidden;
 }
 
+body {
+    font-family: 'Arial', sans-serif;
+}
+
 .navbar {
     background-color: #00796b; /* Albastru închis */
-    padding: 20px;
+    padding: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;

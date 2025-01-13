@@ -16,6 +16,63 @@ body {
     justify-content: center;
     height: 100vh;
 }
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #00796b; /* Albastru închis */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.navbar li {
+    margin-right: 20px;
+    float: left;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.navbar a:hover {
+    background-color: #002244; /* Un albastru și mai închis pentru hover */
+}
+
+/* Stilizarea pentru elementele din dreapta */
+.navbar li.login {
+        
+    float: right;
+}
+
+.go-back-projects {
+    text-align: center;
+}
+
+.go-back-projects p {
+    text-shadow: 3px 2px 3px black;
+    color: white;
+}
+
+.go-back-projects a {
+    color: #f6ff00;
+    text-shadow: 3px 2px 3px black;
+}
 
 /* Titlu */
 h1 {

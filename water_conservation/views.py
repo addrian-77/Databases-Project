@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from database.models import *
 from django.http import JsonResponse
+import json
 
 #PAGES VIEWS
 
@@ -12,10 +13,29 @@ def homepage_view(request):
     return render(request, 'homepage.html')
 
 def technologies_view(request):
-    return render(request, 'technologies.html')
+    technologies = Technology.objects.all()
+    technologies_json = [
+        {
+            "id": tech.id,
+            "name": tech.name,
+            "description": tech.description,
+            "category": {
+                "id": tech.category.id,
+                "name": tech.category.category_name,  # Assuming Category has a `category_name` field
+            },
+            "manufacturer": {
+                "id": tech.manufacturer.id,
+                "name": tech.manufacturer.name,  # Assuming Manufacturer has a `name` field
+                "address": tech.manufacturer.address,  # Assuming Manufacturer has an `address` field
+            },
+        }
+        for tech in technologies
+    ]
+    print(technologies_json)
+    return render(request, 'technologies.html', {'technologies': json.dumps(technologies_json), 'categories': Category.objects.all(), 'manufacturers': Manufacturer.objects.all()})
 
 def company_view(request):
-    return render(request, 'company.html')
+    return render(request, 'company.html', {'countries': Country.objects.all()})
 
 
 def profile_view(request):
@@ -178,5 +198,65 @@ def submit_project(request):
         )
         project.save()
         return JsonResponse({'success': True, 'message': 'Project added successfully!'})  # Return a success message
+    except Category.DoesNotExist:
+        return JsonResponse({'error': 'Category not found'}, status=404)
+    
+def submit_technology(request):
+    name = request.POST.get('name')
+    description = request.POST.get('description')
+    category_name = request.POST.get('category')
+    manufacturer_name = request.POST.get('manufacturer')
+
+    if not name or not description or not category_name or not manufacturer_name:
+        return JsonResponse({'error': 'Missing required fields'}, status=400)
+    
+    try:
+        category_obj = Category.objects.get(category_name=category_name)
+        manufacturer_obj = Manufacturer.objects.get(name=manufacturer_name)
+        technology = Technology.objects.create(
+            name=name,
+            description=description,
+            category=category_obj,
+            manufacturer=manufacturer_obj,
+        )
+        technology.save()
+        return redirect('technologies')
+    except Category.DoesNotExist:
+        return JsonResponse({'error': 'Category not found'}, status=404)
+    
+def submit_company(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'User must be logged in'}, status=403)
+    name = request.POST.get('name')
+    country = request.POST.get('country')
+    location = request.POST.get('location')
+
+    print(country)
+
+    if not name or not country or not location:
+        return JsonResponse({'error': 'Missing required fields'}, status=400)
+    
+    try:
+        country_obj = Country.objects.get(name=country)
+        if Location.objects.filter(name=location).exists():
+            location_obj = Location.objects.get(name=location)
+            # Object exists, and you can use location_obj
+        else:
+            # Handle the case where the object does not exist
+            location_obj = Location.objects.create(
+                country = country_obj,
+                name = location,
+            )
+            location_obj.save()
+            location_obj = Location.objects.get(name=location)
+        
+        company = Company.objects.create(
+            user=request.user,
+            name=name,
+            country=country_obj,
+            location=location_obj,
+        )
+        company.save()
+        return redirect('company')
     except Category.DoesNotExist:
         return JsonResponse({'error': 'Category not found'}, status=404)

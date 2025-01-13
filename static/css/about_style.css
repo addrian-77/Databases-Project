@@ -13,6 +13,7 @@
   }
 
   body {
+    font-family: 'Arial', sans-serif;
     background-image: url('https://static.vecteezy.com/system/resources/thumbnails/022/408/423/small/creative-generative-ai-illustration-of-water-on-earth-globe-with-green-trees-photo.jpg'); /* Simple background image */
     background-size: cover;
     background-position: center;

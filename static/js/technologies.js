@@ -1,54 +1,30 @@
+let technologies = [];
 document.addEventListener('DOMContentLoaded', () => {
     // Lista de tehnologii
-    let technologies = [
-        {
-            name: "Solar Panel X3000",
-            description: "Advanced solar panel technology for residential and industrial use.",
-            category: "Renewable Energy",
-            manufacturer: "EcoTech Inc."
-        },
-        {
-            name: "Water Purifier Pro",
-            description: "High-efficiency water purification system.",
-            category: "Water Management",
-            manufacturer: "Aqua Solutions"
-        }
-    ];
 
     let currentSlide = 0;
 
     // Funcția care afișează tehnologia curentă
     function showTechnology(index) {
         const technology = technologies[index];
+        console.log(technology);
         document.getElementById('techName').textContent = technology.name;
         document.getElementById('techDescription').textContent = technology.description;
-        document.getElementById('techCategory').textContent = technology.category;
-        document.getElementById('techManufacturer').textContent = technology.manufacturer;
+        let category_obj = technology.category
+        document.getElementById('techCategory').textContent = category_obj.name;
+        let manufacturer_obj = technology.manufacturer
+        document.getElementById('techManufacturer').textContent = manufacturer_obj.name;
     }
 
-    // Formular pentru adăugare tehnologie
-    const form = document.getElementById('technologyForm');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newTechnology = {
-            name: document.getElementById('name').value,
-            description: document.getElementById('description').value,
-            category: document.getElementById('category').value,
-            manufacturer: document.getElementById('manufacturer').value
-        };
-        technologies.push(newTechnology);
-        alert('Technology added!');
-        form.reset();
-        currentSlide = technologies.length - 1;
-        showTechnology(currentSlide); // Arată tehnologia nou adăugată
-    });
 
     // Swipe cu mouse-ul
     const slideContainer = document.getElementById('slideContainer');
+    slideContainer.style.cursor = 'grab';
     let startX;
 
     slideContainer.addEventListener('mousedown', (e) => {
         startX = e.clientX;
+        e.preventDefault()
     });
 
     slideContainer.addEventListener('mouseup', (e) => {

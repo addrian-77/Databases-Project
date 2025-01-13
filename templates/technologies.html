@@ -7,15 +7,12 @@
   
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-  <link rel="stylesheet" href="{% static 'css/technologies.css' %}">
-  <link rel="stylesheet" href="{% static 'css/about_style.css' %}">
-  <script  type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
-  <script  type="text/javascript" src="{% static 'js/database_operations.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/technologies_style.css' %}">
   <script  type="text/javascript" src="{% static 'js/technologies.js' %}"></script>
   <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
 </head>
 <script>
-  const about_other_caller = new about_other_scripts();
+  technologies = JSON.parse('{{ technologies|safe }}');
 </script>
 <body>
   
@@ -47,23 +44,43 @@
     </div>
 
     <!-- Formular pentru adăugare tehnologie -->
-    <form id="technologyForm">
-        <h2>Add New Technology</h2>
-        <label for="name">Technology Name:</label>
-        <input type="text" id="name" required>
-
-        <label for="description">Description:</label>
-        <textarea id="description" required></textarea>
-
-        <label for="category">Category:</label>
-        <input type="text" id="category" required>
-
-        <label for="manufacturer">Manufacturer:</label>
-        <input type="text" id="manufacturer" required>
-
-        <button type="submit">Add Technology</button>
+    <form id="technologyForm" action="/submit_technology/" method="post">
+      {% csrf_token %}
+      <h2>Add New Technology</h2>
+    
+      <label for="name">Technology Name:</label>
+      <input type="text" id="name" name="name" required>
+    
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" required></textarea>
+    
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select your category</option>
+        {% if categories %}
+          {% for category in categories %}
+            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+          {% endfor %}
+        {% endif %}
+      </select>
+    
+      <label for="manufacturer">Manufacturer:</label>
+      <select id="manufacturer" name="manufacturer" required>
+        <option value="">Select your manufacturer</option>
+        {% if manufacturers %}
+          {% for manufacturer in manufacturers %}
+            <option value="{{ manufacturer.name }}">{{ manufacturer.name }}</option>
+          {% endfor %}
+        {% endif %}
+      </select>
+    
+      <button type="submit">Add Technology</button>
+      <div class="go-back-projects">
+        <p>Continue registering your project!</p>
+        <p>Click <a href="/projects/">here</a> to go back.</p>
+      </div>
     </form>
+    
 
-    <script src="script.js"></script>
 </body>
 </html>

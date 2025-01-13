@@ -10,6 +10,7 @@ html, body {
   zoom: 95%;
 }
 body {
+  font-family: 'Arial', sans-serif;
   display: flex;
   justify-content: center; /* Horizontally center content */
   align-items: center; /* Vertically center content */
